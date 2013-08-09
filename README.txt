@@ -1,3 +1,7 @@
+By Yashwanth Nannapaneni
+   Alex Korshak
+   Ruijie Shao
+
 README for Yashrukor
 
 
@@ -5,6 +9,9 @@ Welcome to the readme for the Yashrukor. Read this and you will be on the path
 to becoming a Yashrukor pro.
 
 Step 1: Starting the game
+
+To start the program run the Driver.class file in bin/main/ as you would any other java .class file.
+To start the program from an IDE import the project and run src/main/Driver.java
 
 On the main screen to start the game you are given 3 options:
 
