@@ -339,7 +339,7 @@ public class Frame extends JFrame implements ActionListener{
 			currentmousepos.x = e.getX();
 			currentmousepos.y = e.getY();
 			if(newgamemenu==null){
-				if(e.getButton()==MouseEvent.BUTTON1 && !world.getMiniCamera().inCamera(currentmousepos)) {
+				if(SwingUtilities.isLeftMouseButton(e)==true && !world.getMiniCamera().inCamera(currentmousepos)) {
 
 					if(world.thisplayer.press(e))
 						return;

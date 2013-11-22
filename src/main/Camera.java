@@ -86,6 +86,10 @@ public class Camera{
 			y=y+h;
 			h=h*-1;
 		}
+		if(w<1)
+			w=1;
+		if(h<1)
+			h=1;
 		return new Rectangle(x, y, w, h);
 	}
 	public void move(int dx, int dy) {
