@@ -19,18 +19,11 @@ public class Farm extends Building{
 	private boolean makingresources=false;
 	public Farm(int race, int x, int y){
 		super(1, 1000, 70, race, 50, 0, 20, 0, x, y);
-		image=new ImageIcon("Images/Farm.gif").getImage();
+		image=new ImageIcon("resources//images//Farm.gif").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//		super.draw(g, x, y, w, h);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.yellow);
-//		g.fillRect(x, y, w, h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new Farm(race, x, y);
+	}
 	public int collectResources(){
 		int ret=food;
 		food=0;

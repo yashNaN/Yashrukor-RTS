@@ -11,7 +11,7 @@ import buildings.Building;
 
 public class Healer extends Unit {
 	private Image image;
-	static ImageIcon icon=new ImageIcon("Images/Healer.gif");
+	static ImageIcon icon=new ImageIcon("resources//images//Healer.gif");
 	public static int WIDTH=60;
 	public static int HEIGHT=60;
 	public Healer(int race, int direction, int x, int y) {

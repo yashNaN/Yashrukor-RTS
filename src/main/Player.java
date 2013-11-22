@@ -50,15 +50,15 @@ public class Player {
 		wood = 100;
 		food = STARTINGFOOD;
 		stone = 100;
-		ImageIcon ii = new ImageIcon("Images/idleworkerbutton.png");
+		ImageIcon ii = new ImageIcon("resources//images//idleworkerbutton.png");
 		IDLE = ii.getImage();
-		ii = new ImageIcon("Images/Wood.png");
+		ii = new ImageIcon("resources//images//Wood.png");
 		WOOD = ii.getImage();
-		ii = new ImageIcon("Images/Gold.gif");
+		ii = new ImageIcon("resources//images//Gold.gif");
 		GOLD = ii.getImage();
-		ii = new ImageIcon("Images/Food.png");
+		ii = new ImageIcon("resources//images//Food.png");
 		FOOD = ii.getImage();
-		ii = new ImageIcon("Images/Stone.png");
+		ii = new ImageIcon("resources//images//Stone.png");
 		STONE = ii.getImage();
 	}
 	public boolean press(MouseEvent e) {

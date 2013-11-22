@@ -27,17 +27,11 @@ public class Stable extends Building{
 //	private Image image;
 	public Stable(int race,int x,int y){
 		super(8, 2000, 200, race, 60, 50, 70, 4, x, y);
-		image=new ImageIcon("Images/Stables.gif").getImage();
+		image=new ImageIcon("resources//images//Stables.gif").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.green);
-//		g.fillRect(x,y,w,h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new Stable(race, x, y);
+	}
 	@Override
 	public void tic() {
 		if(timing==true){

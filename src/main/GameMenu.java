@@ -123,19 +123,19 @@ public class GameMenu extends JPanel{
 		//g2d.setFont(new Font("Arial", Font.PLAIN, 24));
 		g2d.setFont(new Font("Arial", Font.ITALIC, 24));
 		if(mode==0){
-			Image background = Toolkit.getDefaultToolkit().getImage("Yashrukor.jpg");
+			Image background = Toolkit.getDefaultToolkit().getImage("resources//images//Yashrukor.jpg");
 			g2d.drawImage(background,0,0,getWidth(),getHeight(),null);
 		}
 		else if(mode==1){
-			Image background = Toolkit.getDefaultToolkit().getImage("Lyzad.gif");
+			Image background = Toolkit.getDefaultToolkit().getImage("resources//images//Lyzad.gif");
 			g2d.drawImage(background,0,0,getWidth(),getHeight(),null);
 		}
 		else if(mode==2){
-			Image background = Toolkit.getDefaultToolkit().getImage("Lavaroom.gif");
+			Image background = Toolkit.getDefaultToolkit().getImage("resources//images//Lavaroom.gif");
 			g2d.drawImage(background,0,0,getWidth(),getHeight(),null);
 		}
 		else if(mode==3||mode==4){
-			Image background = Toolkit.getDefaultToolkit().getImage("Ruins.gif");
+			Image background = Toolkit.getDefaultToolkit().getImage("resources//images//Ruins.gif");
 			g2d.drawImage(background,0,0,getWidth(),getHeight(),null);
 		}
 		//g2d.setColor(new Color(50, 90, 71));

@@ -69,10 +69,10 @@ public class Hero extends Unit {
 	 */
 	ArrayList<String> manaHero = new ArrayList<String>();
 	ArrayList<String> timerHero = new ArrayList<String>();
-	ImageIcon icon=new ImageIcon("Images/Blank.png");
+	ImageIcon icon=new ImageIcon("resources//images//Blank.png");
 	//ArrayList<Move>moves=new ArrayList<Move>();
 	public Hero(String heroname, int direction, int x, int y){
-		super(2,0, direction, x, y,new ImageIcon("Images/Heroes/"+heroname+".gif"));
+		super(2,0, direction, x, y,new ImageIcon("resources//images//Heroes/"+heroname+".gif"));
 		VISIONDISTANCE = 700;
 		blinkrunning = false;
 		timerBlink = 0;

@@ -39,7 +39,8 @@ public abstract class Building extends Thing{
 	public boolean constructed = false;
 	public int constructspeed;
 	
-	public boolean detectedbyplayer = false;;
+	public boolean detectedbyplayer = false;
+	public abstract Building initialize(int race, int x, int y);
 	public Building(int type,int health,int buildtime,int race,int wood,int stone,int gold,int spawntype,int x,int y){
 		super();
 		VISIONDISTANCE = 400;

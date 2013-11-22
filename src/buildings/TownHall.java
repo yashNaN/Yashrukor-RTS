@@ -22,26 +22,18 @@ public class TownHall extends Building{
 	//makes workers
 	private int gold=0;
 	private int goldtic=0;
-	//private Timer worktime=new Timer(1000,new createUnit());
 	boolean timing=false;
 	int count=0;
 	int ticcount=5;
 	private ArrayList<Worker>workerlist=new ArrayList<Worker>();
 	private String name="Town Hall";
-//	private Image image;
 	public TownHall(int race, int x, int y){
 		super(Building.TOWNHALL, 4000, 200, race, 100, 100, 300, Unit.WORKER, x, y);
-		image=new ImageIcon("Images/TownHall.gif").getImage();
+		image=new ImageIcon("resources//images//TownHall.gif").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.pink);
-//		g.fillRect(x,y,w,h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new TownHall(race, x, y);
+	}
 	@Override
 	public void tic(){
 		if(constructed){

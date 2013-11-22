@@ -25,17 +25,11 @@ public class Barracks extends Building{
 	private ArrayList<Swordsman>smlist=new ArrayList<Swordsman>();
 	public Barracks(int race,int x,int y){
 		super(6, 3000, 150, race, 60, 40, 30, Unit.SWORDSMAN, x, y);
-		image=new ImageIcon("Images/Barracks.gif").getImage();
+		image=new ImageIcon("resources//images//Barracks.gif").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.cyan);
-//		g.fillRect(x,y,w,h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new Barracks(race, x, y);
+	}
 	@Override
 	public void tic() {
 		if(timing==true){
@@ -68,13 +62,13 @@ public class Barracks extends Building{
 		while(!found && tempcount++<20) {
 			double ran = Math.random();
 			if(ran<.25) {
-				a=new Swordsman(getPlayer().race(),0,x()-Archer.WIDTH,(int) (y()-Archer.HEIGHT+Math.random()*(h()+Archer.HEIGHT)));
+				a=new Swordsman(getPlayer().race(),0,x()-Swordsman.WIDTH,(int) (y()-Swordsman.HEIGHT+Math.random()*(h()+Swordsman.HEIGHT)));
 			} else if(ran<.5) {
-				a=new Swordsman(getPlayer().race(),0,x()+w()+Archer.WIDTH,(int) (y()-Archer.HEIGHT+Math.random()*(h()+Archer.HEIGHT)));
+				a=new Swordsman(getPlayer().race(),0,x()+w()+Swordsman.WIDTH,(int) (y()-Swordsman.HEIGHT+Math.random()*(h()+Swordsman.HEIGHT)));
 			} else if(ran<.75) {
-				a=new Swordsman(getPlayer().race(),0,(int) (x()-Archer.WIDTH+Math.random()*(w()+Archer.WIDTH)),y()-Archer.HEIGHT);
+				a=new Swordsman(getPlayer().race(),0,(int) (x()-Swordsman.WIDTH+Math.random()*(w()+Swordsman.WIDTH)),y()-Swordsman.HEIGHT);
 			} else {
-				a=new Swordsman(getPlayer().race(),0,(int) (x()-Archer.WIDTH+Math.random()*(w()+Archer.WIDTH)),y()+h()+Archer.HEIGHT);
+				a=new Swordsman(getPlayer().race(),0,(int) (x()-Swordsman.WIDTH+Math.random()*(w()+Swordsman.WIDTH)),y()+h()+Swordsman.HEIGHT);
 			}
 			found = !myworld.doesthiscollide(a, 0, 0);
 		}

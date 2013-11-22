@@ -27,17 +27,11 @@ public class Church extends Building{
 //	private Image image;
 	public Church(int race,int x,int y){
 		super(7, 2500, 160, race, 80, 40, 50, Unit.HEALER, x, y);
-		image=new ImageIcon("Images/Church.gif").getImage();
+		image=new ImageIcon("resources//images//Church.gif").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.black);
-//		g.fillRect(x,y,w,h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new Church(race, x, y);
+	}
 	@Override
 	public void tic() {
 		if(timing==true){

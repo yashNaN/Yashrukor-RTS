@@ -19,17 +19,11 @@ public class LumberMill extends Building{
 	private boolean makingresources=false;
 	public LumberMill(int race, int x, int y){
 		super(2, 1500, 70, race, 0, 0, 20, 0, x, y);
-		image=new ImageIcon("Images/Lumbermill.png").getImage();
+		image=new ImageIcon("resources//images//Lumbermill.png").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.orange);
-//		g.fillRect(x,y,w,h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new LumberMill(race, x, y);
+	}
 	public int collectResources(){
 		int ret=wood;
 		wood=0;

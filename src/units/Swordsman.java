@@ -12,7 +12,7 @@ import main.Thing;
 import buildings.Building;
 
 public class Swordsman extends Unit {
-	static ImageIcon icon=new ImageIcon("Images/Swordsman.gif");
+	static ImageIcon icon=new ImageIcon("resources//images//Swordsman.gif");
 	private Image image;
 	public static int WIDTH=35;
 	public static int HEIGHT=36;

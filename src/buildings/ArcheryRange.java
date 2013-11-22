@@ -27,17 +27,11 @@ public class ArcheryRange extends Building{
 	private ArrayList<Archer>archerlist=new ArrayList<Archer>();
 	public ArcheryRange(int race,int x,int y){
 		super(5, 3000, 160, race, 100, 30, 50, Unit.ARCHER, x, y);
-		image=new ImageIcon("Images/ArcheryRange.png").getImage();
+		image=new ImageIcon("resources//images//ArcheryRange.png").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.blue);
-//		g.fillRect(x,y,w,h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new ArcheryRange(race, x, y);
+	}
 	@Override
 	public void tic() {
 		if(timing==true){

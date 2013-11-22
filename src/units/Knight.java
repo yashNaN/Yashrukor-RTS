@@ -13,7 +13,7 @@ import buildings.Building;
 
 public class Knight extends Unit {
 	private Image image;
-	static ImageIcon icon=new ImageIcon("Images/Knight.gif");
+	static ImageIcon icon=new ImageIcon("resources//images//Knight.gif");
 	public static int WIDTH=60;
 	public static int HEIGHT=60;
 	public Knight(int race, int direction, int x, int y) {

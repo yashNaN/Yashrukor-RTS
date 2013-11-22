@@ -18,17 +18,11 @@ public class Tower extends Building{
 	public Tower(int race, int x, int y){
 		super(9, 3000, 200, race, 100, 100, 40, 0, x, y);
 		VISIONDISTANCE = 1000;
-		image=new ImageIcon("Images/Tower.gif").getImage();
+		image=new ImageIcon("resources//images//Tower.gif").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.gray);
-//		g.fillRect(x, y, w, h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new Tower(race, x, y);
+	}
 	public void makeUnit() {
 	}
 	@Override

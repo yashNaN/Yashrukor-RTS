@@ -14,7 +14,7 @@ import buildings.Building;
 
 public class Archer extends Unit {
 	private Image image;
-	static ImageIcon icon=new ImageIcon("Images/Archer.gif");
+	static ImageIcon icon=new ImageIcon("resources//images//Archer.gif");
 	public static int WIDTH=42;
 	public static int HEIGHT=37;
 	public Archer(int race, int direction, int x, int y) {

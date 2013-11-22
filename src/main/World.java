@@ -41,7 +41,13 @@ public class World extends JPanel{
 	public Rectangle select;
 	public ArrayList<Thing> selected = new ArrayList<Thing>();
 	public Frame frame;
-	public Camera maincamera = new Camera(this, 0, 0, 900, 600, MAINCAMERAMOVESPEED);
+	/**
+	 * this is the main player camera, it starts out centered at point 900, 900 
+	 */
+	public Camera maincamera = new Camera(this, 900, 900, 900, 600, MAINCAMERAMOVESPEED);
+	/**
+	 * This is the minimap camera, it sees a wide area, and doesnt move
+	 */
 	Camera minimap = new Camera(this, 0, 0, 4000, 4000,  MAINCAMERAMOVESPEED);
 	public boolean vselected; 
 	public boolean xselected;
@@ -52,7 +58,7 @@ public class World extends JPanel{
 	int[]yolo={0};
 	public World(Frame fr){
 		frame = fr;
-		ImageIcon ii = new ImageIcon("Images//underconstruction.png");
+		ImageIcon ii = new ImageIcon("resources//images//underconstruction.png");
 		Building.underconstruction = ii.getImage();
 		vselected = false;
 		Thing.myworld = this;

@@ -36,9 +36,9 @@ public class Camera{
 		worldh = sh;
 		world = sworld;
 		movespeed = smovespeed;
-		ImageIcon ii = new ImageIcon("Images/fog.png");
+		ImageIcon ii = new ImageIcon("resources//images//fog.png");
 		FOG = ii.getImage();
-		ii = new ImageIcon("Images/lightfog.png");
+		ii = new ImageIcon("resources//images//lightfog.png");
 		LFOG = ii.getImage();
 	}
 	public void setBounds(int x, int y, int w, int h) {

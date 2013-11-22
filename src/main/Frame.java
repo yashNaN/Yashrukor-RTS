@@ -272,37 +272,7 @@ public class Frame extends JFrame implements ActionListener{
 				if(world.isbuilding==true&&canBuild(world.thisplayer.resources(),world.buildthis.resources())){
 					boolean overlaps=false;
 					Building f;
-					if(world.buildthis instanceof ArcheryRange){
-						f=new ArcheryRange(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-						Worker w = world.getaselectedworker();
-					}
-					else if(world.buildthis instanceof Barracks){
-						f=new Barracks(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof Church){
-						f=new Church(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof Farm){
-						f=new Farm(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof LumberMill){
-						f=new LumberMill(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof Quarry){
-						f=new Quarry(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof Stable){
-						f=new Stable(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof Tower){
-						f=new Tower(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else if(world.buildthis instanceof TownHall){
-						f=new TownHall(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
-					}
-					else{
-						f=null;
-					}
+					f = world.buildthis.initialize(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
 					for(Building b:world.getBuildings()){
 						if(b.collides(f)){
 							overlaps=true;
@@ -315,7 +285,7 @@ public class Frame extends JFrame implements ActionListener{
 							}
 						}
 					}
-					if(f.x()<world.MINX || f.y()<world.MINY || f.x()+f.w()>world.MAXX || f.y()+f.h()>world.MAXY) {
+					if(f.x()<world.MINX+10 || f.y()<world.MINY+10 || f.x()+f.w()>world.MAXX-10 || f.y()+f.h()>world.MAXY-10) {
 						overlaps = true;
 					}
 					if(overlaps==false&&lastpoint.x>world.MINX&&lastpoint.x<(world.MAXX-100)&&lastpoint.y>world.MINY&&lastpoint.y<(world.MAXY-100)){

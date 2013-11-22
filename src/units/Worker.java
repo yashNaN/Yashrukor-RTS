@@ -14,7 +14,7 @@ import buildings.*;
 public class Worker extends Unit {
 	int harvestRate=1;
 	private Image image;
-	static ImageIcon icon=new ImageIcon("Images/Worker.gif");
+	static ImageIcon icon=new ImageIcon("resources//images//Worker.gif");
 	public static int WIDTH=23;
 	public static int HEIGHT=29;
 	public Worker(int race, int direction,int x, int y){
