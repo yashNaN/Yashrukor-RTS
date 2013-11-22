@@ -120,6 +120,9 @@ public class Camera{
 	public int getH(){
 		return worldh;
 	}
+	public Point getPoint(Point p) {
+		return getPoint(p.x, p.y);
+	}
 	public Point getPoint(int x, int y) {
 		double rw = (double)draww/this.worldw;
 		double rh = (double)drawh/(double)this.worldh;

@@ -158,9 +158,8 @@ public abstract class Unit extends Thing{
 			}
 		}
 		if(a.type==Action.ATTACKMOVE && a.hascoordinates) {
-			Thing t = myworld.findEnemy(this);
+			Thing t = myworld.findClosestEnemy(this);
 			if(t==null) {
-//				System.out.println("attackmoving: move");
 				if(this.moveToward(a.x, a.y)){
 					actionqueue.remove(0);
 				}

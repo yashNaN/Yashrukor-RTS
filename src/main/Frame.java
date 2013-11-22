@@ -349,8 +349,8 @@ public class Frame extends JFrame implements ActionListener{
 					world.chooseThings();
 					leftmousedown = false;
 				}
-				int x=lastpoint.x;
-				int y=lastpoint.y;
+//				int x=lastpoint.x;
+//				int y=lastpoint.y;
 				if(SwingUtilities.isRightMouseButton(e)==true && world.getMainCamera().inCamera(currentmousepos) && world.addedunit==true){
 					Point p=world.getMainCamera().getPoint(e.getX(),e.getY());
 					Thing target = world.getOneThingThatCollides(p);

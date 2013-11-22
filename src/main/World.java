@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import units.*;
 
@@ -181,31 +182,37 @@ public class World extends JPanel{
 		}
 		
 	}
-	
-		public Thing findEnemy(Unit u) {
-//		ArrayList<Thing> posstargets = new ArrayList<Thing>();
-		ArrayList<Integer> dist = new ArrayList<Integer>();
-		for(Thing t : getAllThings()) {
-			if(t.getPlayer()!=u.getPlayer()){
-//				System.out.println("findEnemy: cansee the "+t.toString()+"="+u.canSee(t));
-				if(u.canSee(t)) {
-					int distance = (int) u.distanceFrom(t);
-					if(distance<=Unit.AGRODISTANCE) {
-						return t;
-//						for(int a=0; a<dist.size(); a++) {
-//							if(distance>=dist.get(a)) {
-//								posstargets.add(a, t);
-//								dist.add(a, distance);
-//								break;
-//							}
-//						}
+	public Thing findClosestEnemy(Unit u) {
+		Thing closest = null;
+		int distofclosest = 0;
+		for(Thing thing : getAllThings()) {
+			if(thing.getPlayer()!=u.getPlayer()) {//check if it is an enemy
+				if(u.canSee(thing)) {// check if Unit u can see thing
+					int dist = (int) u.distanceFrom(thing);
+					if(closest==null || dist<distofclosest) {
+						closest = thing;
+						distofclosest = dist;
 					}
 				}
 			}
 		}
-//		if(posstargets.size()<=0)
-//			return null;
-//		return posstargets.get(0);
+		return closest;
+	}
+	/**
+	 * 
+	 * @return the first enemy inside AGRODISTANCE of Unit u
+	 */
+	public Thing findEnemy(Unit u) {
+		for(Thing t : getAllThings()) {
+			if(t.getPlayer()!=u.getPlayer()){
+				if(u.canSee(t)) {
+					int distance = (int) u.distanceFrom(t);
+					if(distance<=Unit.AGRODISTANCE) {
+						return t;
+					}
+				}
+			}
+		}
 		return null;
 	}
 	public Thing findFriendly(Unit u) {
@@ -573,8 +580,14 @@ public class World extends JPanel{
 				k.release();
 				if(k.is("a")) {
 					for(Thing t : selected){
-						Point tar = (maincamera.getPoint(frame.currentMouse().x, frame.currentMouse().y));
-						if(t instanceof Unit){
+						Point tar = null;
+						if(this.getMainCamera().inCamera(frame.currentMouse())){
+							tar=this.getMainCamera().getPoint(frame.currentMouse());
+						}
+						if(this.getMiniCamera().inCamera(frame.currentMouse())){
+							tar=this.getMiniCamera().getPoint(frame.currentMouse());
+						}
+						if(tar != null && t instanceof Unit){
 							Unit u = (Unit)t;
 							int abilitynumber = u.getAbilityNumber(Action.ATTACKMOVE);
 							if(frame.shiftdown) {
