@@ -19,17 +19,11 @@ public class Quarry extends Building{
 	private boolean makingresources=false;
 	public Quarry(int race, int x, int y){
 		super(3, 1500, 70, race, 50, 0, 20, 0, x, y);
-		image=new ImageIcon("Images/Quarry.png").getImage();
+		image=new ImageIcon("resources//images//Quarry.png").getImage();
 	}
-//	@Override
-//	public void draw(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawImage(image, x, y, w, h, null);
-//	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.lightGray);
-//		g.fillRect(x, y, w, h);
-//	}
+	public Building initialize(int race, int x, int y) {
+		return new Quarry(race, x, y);
+	}
 	public int collectResources(){
 		int ret=stone;
 		stone=0;
