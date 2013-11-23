@@ -18,8 +18,8 @@ public class Healer extends Unit {
 		super(race, HEALER, direction, x, y,icon);
 		setSize(60,60);
 		type = HEALER;
-		setHealth(300);
-		movespeed = 10;
+		setHealth(350);
+		movespeed = 5;
 		damage = -4;
 		range = 100;
 		attackspeed = 1;

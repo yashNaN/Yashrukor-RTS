@@ -21,10 +21,10 @@ public class Barracks extends Building{
 	//makes Swordsmen
 	boolean timing=false;
 	int count=0;
-	int ticcount=10;
+	int ticcount=40;
 	private ArrayList<Swordsman>smlist=new ArrayList<Swordsman>();
 	public Barracks(int race,int x,int y){
-		super(6, 3000, 150, race, 60, 40, 30, Unit.SWORDSMAN, x, y);
+		super(6, 3000, 200, race, 60, 40, 30, Unit.SWORDSMAN, x, y);
 		image=new ImageIcon("resources//images//Barracks.gif").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

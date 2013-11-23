@@ -20,9 +20,9 @@ public class Knight extends Unit {
 		super(race, KNIGHT, direction, x, y, icon);
 		setSize(60,60);
 		type = KNIGHT;
-		setHealth(400);
+		setHealth(500);
 		movespeed = 7;
-		damage = 8;
+		damage = 7;
 		range = 50;
 		attackspeed = 1;
 		goldcost = 20;

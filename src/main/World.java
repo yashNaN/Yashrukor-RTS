@@ -43,9 +43,9 @@ public class World extends JPanel{
 	public ArrayList<Thing> selected = new ArrayList<Thing>();
 	public Frame frame;
 	/**
-	 * this is the main player camera, it starts out centered at point 900, 900 
+	 * this is the main player camera, it starts out centered at point 1000, 1300 
 	 */
-	public Camera maincamera = new Camera(this, 900, 900, 900, 600, MAINCAMERAMOVESPEED);
+	public Camera maincamera = new Camera(this, 1100, 1300, 900, 600, MAINCAMERAMOVESPEED);
 	/**
 	 * This is the minimap camera, it sees a wide area, and doesnt move
 	 */

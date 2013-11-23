@@ -18,7 +18,7 @@ public class LumberMill extends Building{
 //	private Image image;
 	private boolean makingresources=false;
 	public LumberMill(int race, int x, int y){
-		super(2, 1500, 70, race, 0, 0, 20, 0, x, y);
+		super(2, 1500, 100, race, 0, 0, 20, 0, x, y);
 		image=new ImageIcon("resources//images//Lumbermill.png").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

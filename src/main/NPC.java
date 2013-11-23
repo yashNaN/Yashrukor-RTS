@@ -27,7 +27,7 @@ public class NPC extends Player{
 		neededbuildings.add(new Farm(srace, 0, 0));
 		neededbuildings.add(new Barracks(srace, 0, 0));
 		neededbuildings.add(new ArcheryRange(srace, 0, 0));
-		neededbuildings.add(new Church(srace, 0, 0));
+//		neededbuildings.add(new Church(srace, 0, 0));
 		neededbuildings.add(new Stable(srace, 0, 0));
 		neededbuildings.add(new Tower(srace, 0, 0));
 	}
@@ -170,14 +170,14 @@ public class NPC extends Player{
 			}
 		}
 		else{
-			if(target!=null){
-				int abilitynumber = actor.getAbilityNumber(Action.ATTACK);
-				actor.useAbility(abilitynumber, target);
-			} 
-			else{
+//			if(target!=null){
+//				int abilitynumber = actor.getAbilityNumber(Action.ATTACK);
+//				actor.useAbility(abilitynumber, target);
+//			} 
+//			else{
 				int abilitynumber = actor.getAbilityNumber(Action.ATTACKMOVE);
 				actor.useAbility(abilitynumber, p.x, p.y);
-			}
+//			}
 		}
 	}
 	public void checkToBuild(Worker w){

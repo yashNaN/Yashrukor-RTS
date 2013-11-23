@@ -22,7 +22,7 @@ public class Archer extends Unit {
 		VISIONDISTANCE = 900;
 		setSize(42,37);
 		type = ARCHER;
-		setHealth(200);
+		setHealth(250);
 		movespeed = 3;
 		damage = 4;
 		range = 400;

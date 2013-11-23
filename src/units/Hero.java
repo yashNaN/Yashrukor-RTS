@@ -350,14 +350,14 @@ public class Hero extends Unit {
 			else if(name.equals("Prototype")){	
 				damage=30;
 				//damage = 5;
-				movespeed=10;
+				movespeed=8;
 				setHealth(700);
 				return 1;
 			}
 			else if(name.equals("Tarba")){
 				damage=15;
-				movespeed=50;
-				setHealth(350);
+				movespeed=15;
+				setHealth(400);
 				return 1;
 			}
 			return -1;

@@ -18,7 +18,7 @@ public class Quarry extends Building{
 //	private Image image;
 	private boolean makingresources=false;
 	public Quarry(int race, int x, int y){
-		super(3, 1500, 70, race, 50, 0, 20, 0, x, y);
+		super(3, 1500, 100, race, 50, 0, 20, 0, x, y);
 		image=new ImageIcon("resources//images//Quarry.png").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

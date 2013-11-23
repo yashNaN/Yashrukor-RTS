@@ -16,7 +16,7 @@ public class Tower extends Building{
 	private int range=250;
 	private int damage=5;
 	public Tower(int race, int x, int y){
-		super(9, 3000, 200, race, 100, 100, 40, 0, x, y);
+		super(9, 3500, 200, race, 100, 100, 40, 0, x, y);
 		VISIONDISTANCE = 1000;
 		image=new ImageIcon("resources//images//Tower.gif").getImage();
 	}

@@ -23,10 +23,10 @@ public class ArcheryRange extends Building{
 //	private Image image;
 	boolean timing=false;
 	int count=0;
-	int ticcount=10;
+	int ticcount=50;
 	private ArrayList<Archer>archerlist=new ArrayList<Archer>();
 	public ArcheryRange(int race,int x,int y){
-		super(5, 3000, 160, race, 100, 30, 50, Unit.ARCHER, x, y);
+		super(5, 3000, 220, race, 100, 30, 50, Unit.ARCHER, x, y);
 		image=new ImageIcon("resources//images//ArcheryRange.png").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

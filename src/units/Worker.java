@@ -22,7 +22,7 @@ public class Worker extends Unit {
 		super(race,WORKER,direction, x, y,icon);
 		setSize(23,29);
 		type = WORKER;
-		setHealth(200);
+		setHealth(250);
 		movespeed = 4;
 		damage = 2;
 		range = 5;

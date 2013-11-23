@@ -22,11 +22,11 @@ public class Church extends Building{
 	//makes Healers
 	boolean timing=false;
 	int count=0;
-	int ticcount=15;
+	int ticcount=50;
 	private ArrayList<Healer>clist=new ArrayList<Healer>();
 //	private Image image;
 	public Church(int race,int x,int y){
-		super(7, 2500, 160, race, 80, 40, 50, Unit.HEALER, x, y);
+		super(7, 2500, 210, race, 80, 40, 50, Unit.HEALER, x, y);
 		image=new ImageIcon("resources//images//Church.gif").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

@@ -20,7 +20,7 @@ public class Swordsman extends Unit {
 		super(race, SWORDSMAN, direction, x, y, icon);
 		setSize(35,36);
 		type = SWORDSMAN;
-		setHealth(350);
+		setHealth(400);
 		movespeed = 3;
 		damage = 5;
 		range = 20;

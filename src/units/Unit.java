@@ -127,34 +127,22 @@ public abstract class Unit extends Thing{
 							insertAbility(Action.ATTACK, t);
 						}
 						else
-							return;
+							break;
 					}
 					else
-						return;
+						break;
 				}
 				
 			}
-			else
-			{
-				return;
-			}
 			
 		}
+		if(actionqueue.size()==0)
+			return;
 		Action a = actionqueue.get(0);
 		ttt=a.target;
 		if(a.type==Action.MOVE && a.hascoordinates){
 			if(this.moveToward(a.x, a.y)){
 				actionqueue.remove(0);
-			}
-		}
-		if(!(this instanceof Healer)&&a.type==Action.ATTACK && a.target!=null) {
-			if(attack(a.target)){
-				actionqueue.remove(0);
-			} 
-			else{
-				if(!this.collidesRange(this.range, a.target)){
-					this.moveToward(a.target.x()+a.target.w()/2, a.target.y()+a.target.h()/2);
-				}
 			}
 		}
 		if(a.type==Action.ATTACKMOVE && a.hascoordinates) {
@@ -166,6 +154,18 @@ public abstract class Unit extends Thing{
 			} else {
 //				System.out.println("attackmoving: attack");
 				this.insertAbility(this.getAbilityNumber(Action.ATTACK), t);
+				a = actionqueue.get(0);
+				ttt=a.target;
+			}
+		}
+		if(!(this instanceof Healer) && a.type==Action.ATTACK && a.target!=null) {
+			if(attack(a.target)){
+				actionqueue.remove(0);
+			} 
+			else{
+				if(!this.collidesRange(this.range, a.target)){
+					this.moveToward(a.target.x()+a.target.w()/2, a.target.y()+a.target.h()/2);
+				}
 			}
 		}
 		if(a.type==Action.BUILD){

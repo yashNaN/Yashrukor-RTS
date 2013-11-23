@@ -24,11 +24,11 @@ public class TownHall extends Building{
 	private int goldtic=0;
 	boolean timing=false;
 	int count=0;
-	int ticcount=5;
+	int ticcount=30;
 	private ArrayList<Worker>workerlist=new ArrayList<Worker>();
 	private String name="Town Hall";
 	public TownHall(int race, int x, int y){
-		super(Building.TOWNHALL, 4000, 200, race, 100, 100, 300, Unit.WORKER, x, y);
+		super(Building.TOWNHALL, 4500, 300, race, 100, 100, 300, Unit.WORKER, x, y);
 		image=new ImageIcon("resources//images//TownHall.gif").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

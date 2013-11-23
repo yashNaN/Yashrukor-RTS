@@ -22,11 +22,11 @@ public class Stable extends Building{
 	//makes Knights
 	boolean timing=false;
 	int count=0;
-	int ticcount=20;
+	int ticcount=60;
 	private ArrayList<Knight>knightlist=new ArrayList<Knight>();
 //	private Image image;
 	public Stable(int race,int x,int y){
-		super(8, 2000, 200, race, 60, 50, 70, 4, x, y);
+		super(8, 3000, 250, race, 60, 50, 70, 4, x, y);
 		image=new ImageIcon("resources//images//Stables.gif").getImage();
 	}
 	public Building initialize(int race, int x, int y) {

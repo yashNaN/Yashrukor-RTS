@@ -18,7 +18,7 @@ public class Farm extends Building{
 //	private Image image;
 	private boolean makingresources=false;
 	public Farm(int race, int x, int y){
-		super(1, 1000, 70, race, 50, 0, 20, 0, x, y);
+		super(1, 1500, 100, race, 50, 0, 20, 0, x, y);
 		image=new ImageIcon("resources//images//Farm.gif").getImage();
 	}
 	public Building initialize(int race, int x, int y) {
