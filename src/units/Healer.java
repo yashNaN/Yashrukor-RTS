@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 
@@ -19,7 +20,7 @@ public class Healer extends Unit {
 		setHealth(350);
 		movespeed = 5;
 		damage = -10;
-		range = 100;
+		range = 200;
 		attackspeed = 1;
 		goldcost = 15;
 		woodcost = 15;
@@ -37,11 +38,6 @@ public class Healer extends Unit {
 		g.setFont(new Font("Arial", Font.PLAIN, 40));
 		g.drawString("Healer", x+40, y+50);
 	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.red);
-//		g.fillRect(x,y,w,h);
-//	}
 	public boolean heal(Unit u){
 		/*
 		int x =0;
@@ -60,7 +56,6 @@ public class Healer extends Unit {
 	}
 	@Override
 	public int getDamage() {
-		// TODO Auto-generated method stub
 		return damage;
 	}
 

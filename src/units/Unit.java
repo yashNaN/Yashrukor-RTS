@@ -12,18 +12,42 @@ import buildings.*;
 
 
 public abstract class Unit extends Thing{
+	/**
+	 * the distance at which this unit attacks enemies autonomously
+	 */
 	public static final int AGRODISTANCE = 400;
+	/**
+	 * used for drawing
+	 */
 	public static final int HPBARHEIGHT = 6;
+	/**
+	 * used for drawing
+	 */
 	public static final int HPBARDIST = 6;
+	/**
+	 * true if this unit will be aggressive, false if not
+	 */
 	public boolean attackmode; 
+	/**
+	 * has no effect on gameplay yet, just a placeholder
+	 */
 	protected int race;
-	protected int type; // i changed this from static to non static since type shouldnt be static
-	// since not all Units are of the same type 
-	protected int movespeed=1;
-	protected int damage=1;
-	protected int range=100;
+	/**
+	 * how fast the Unit moves across the map
+	 */
+	protected int movespeed;
+	/**
+	 * how much damage the Unit does to enemies
+	 */
+	protected int damage;
+	/**
+	 * how close the Unit has to be to be able to attack enemies, default is 100
+	 */
+	protected int range;
+	/**
+	 * how fast the Unit attacks, currently has no effect(all units attack same speed regardless of attackspeed)
+	 */
 	protected int attackspeed;
-	//protected int direction;
 	protected int woodcost;
 	protected int goldcost;
 	protected int foodcost;
@@ -31,6 +55,10 @@ public abstract class Unit extends Thing{
 	private int bufftic=0;
 	int buffduration=Integer.MAX_VALUE;
 	// mana variables are just defined it is not used
+	/**
+	 * the type of Unit, ex: HERO, WORKER, ARCHER, etc...
+	 */
+	protected int type;
 	public static final int HERO=0;
 	public static final int WORKER=1; 
 	public static final int ARCHER=2;
@@ -56,11 +84,11 @@ public abstract class Unit extends Thing{
 	public boolean busy=false;
 	public ArrayList<Action> actionqueue = new ArrayList<Action>();
 	abstract public int getDamage();
-	//static World W = new World();
 	public Unit(int race,int type, int direction, int x, int y, ImageIcon icon){
 		super();
 		attackmode = false;
 		VISIONDISTANCE = 500;
+		range = 100;
 		commands.add(Action.MOVE);
 		commands.add(Action.ATTACK);
 		commands.add(Action.ATTACKMOVE);
@@ -250,9 +278,6 @@ public abstract class Unit extends Thing{
 		}
 		return new Point(finaldx, finaldy);
 	}
-//	public Point alexgetpathtoward2(int dx, int dy) {// also alex work also dont touch
-//		
-//	}
 	public Point alexgetpathtoward(int dx, int dy, int count) {// this is alex work dont touch
 		if(count>200) {
 //			System.out.println("reached max");
@@ -290,8 +315,7 @@ public abstract class Unit extends Thing{
 			return new Point(dx, dy);
 		}
 	}
-	public ArrayList<Thing> allThings()
-	{
+	public ArrayList<Thing> allThings() {
 		ArrayList<Thing> allThings = getWorld().getAllThings();
 		return allThings;
 	}
@@ -441,7 +465,11 @@ public abstract class Unit extends Thing{
 		g.drawString("MoveSpeed:"+movespeed, x+220, y+60);
 		g.drawString("Damage:"+damage, x+400, y+30);
 		g.drawString("Range:"+range, x+600, y+30);
-		g.drawString("Attack Speed:"+attackspeed, x+400, y+60);
+//		g.drawString("Attack Speed:"+attackspeed, x+400, y+60);
+		if(buffed) {
+			g.setFont(new Font("Arial", Font.BOLD, 40));
+			g.drawString("BUFF ON", x+250, y+110);
+		}
 	}
 	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
 		g.setColor(getPlayer().getColor());
@@ -450,14 +478,6 @@ public abstract class Unit extends Thing{
 	public int getMaxHealth(){
 		return maxhealth;
 	}
-//	public int getHealth(){
-//		return health;
-//	}
-//	public int getHealthRegen()
-//	{
-//		return -1;
-//	}
-	
 	public int getRaceInt(){
 		return race;
 	}
@@ -473,18 +493,6 @@ public abstract class Unit extends Thing{
 		}
 		return null;
 	}
-//	public void setMoveX(int x){
-//		if(x<1){
-//			x=1;
-//		}
-//		moveX = x;
-//	}
-//	public void setMoveY(int y){
-//		if(y<1){
-//			y=1;
-//		}
-//		moveY = y;
-//	}
 	public int getMoveX(){
 		return moveX;
 	}
@@ -496,14 +504,12 @@ public abstract class Unit extends Thing{
 		buffed=true;
 		bufftic=0;
 		movespeed=movespeed*2;
-		attackspeed=attackspeed*2;
 		damage=damage*2;
 	}
 	public void debuff(){
 		buffed=false;
 		buffduration=Integer.MAX_VALUE;
 		movespeed=movespeed/2;
-		attackspeed=attackspeed/2;
 		damage=damage/2;
 	}
 	public String getTypeString(){
