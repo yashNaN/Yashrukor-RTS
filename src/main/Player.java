@@ -95,7 +95,6 @@ public class Player {
 		g.fillRect(x, y+h-155, w, 155);
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
-//		g.drawString("Gold: "+gold+", Wood: "+wood+", Stone: "+stone+", Food: "+food,10,25);
 		g.drawImage(GOLD, 10, 10, 20, 20, null);
 		g.drawString(gold+"", 31, 25);
 		g.drawImage(WOOD, 80, 10, 20, 20, null);
@@ -161,8 +160,6 @@ public class Player {
 				g.drawString("Enemies are located at the other 3 corners of the map", 50, 500);
 			}
 		}
-		
-		
 	}
 	public Color getColor(){
 		return color;

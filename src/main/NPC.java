@@ -52,11 +52,11 @@ public class NPC extends Player{
 				assignBuildingToUnit(u,atk);
 			}
 		}
-		unittic++;
-		if(unittic==100){
+		unittic+=difficulty;
+		if(unittic>300){
 			for(Building b:mybuildings){
 				if(b instanceof TownHall) {
-					if(Math.random()*100>numofworkers*10) {
+					if(Math.random()*100>numofworkers*11) {
 						b.makeUnit();
 					}
 				} else {

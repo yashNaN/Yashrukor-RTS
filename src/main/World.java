@@ -24,6 +24,10 @@ import units.*;
 
 public class World extends JPanel{
 	/**
+	 * disables of enables Fog of War
+	 */
+	public static final boolean FOW = true;
+	/**
 	 * left most boundary of world
 	 */
 	public final int MINX = -2000;

@@ -165,18 +165,9 @@ public class Thing implements Collides{
 	public void drawGUI(Graphics2D g, int x, int y, int w, int h) {
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
-//		g.drawString("Thing", x+20, y+50);
 		g.drawString("Health:"+health+"/"+maxhealth, x+220, y+30);
 	}
-//	public void drawOutline(Graphics2D g, int x, int y, int w, int h) {
-//		g.drawRect(x, y, w, h);
-//	}
 	public boolean collides(Point p){
-		/*
-		Rectangle threct=getBounds();
-		Rectangle rect=new Rectangle(p.x-1,p.y-1,p.x+1,p.y+1);
-		return threct.intersects(rect);
-		*/
 		if(p.x>x&&p.x<x+w&&p.y>y&&p.y<y+h){
 			return true;
 		}
@@ -186,9 +177,15 @@ public class Thing implements Collides{
 		return myworld;
 	}
 	public boolean canSee(Thing other) {
-		return distanceFrom(other)<VISIONDISTANCE;
+		if(World.FOW) {
+			return distanceFrom(other)<VISIONDISTANCE;
+		}
+		return true;
 	}
 	public boolean canSee(Point other) {
-		return distanceFrom(other)<VISIONDISTANCE;
+		if(World.FOW) {
+			return distanceFrom(other)<VISIONDISTANCE;
+		}
+		return true;
 	}
 }
