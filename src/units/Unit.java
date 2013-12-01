@@ -103,27 +103,20 @@ public abstract class Unit extends Thing{
 		this.icon=icon;
 	}
 	public void tic() {
-		if(this instanceof Healer){
-			Thing t = myworld.findFriendly(this);
-			if(t!=null) {
-				if(t.distanceFrom(this)<range&&t.getPlayer()==this.getPlayer()&&t.health()<t.maxHealth()){
-					t.heal(10);
-				} else
-//				if(!this.collidesRange(this.range, t.target)){
-					this.moveToward(t.x()+t.w()/2, t.y()+t.h()/2);
-//				}
-			}
-		}
 		if(actionqueue.size()==0) {
-			if(attackmode)
-			{
-				for(Thing t : allThings())
-				{
-					if(t instanceof Unit)
-					{
-//						double eucliddistance = Math.sqrt((((t.x() - x())*(t.x()-x())) + ((t.y() - y()) * (t.y()-y()))));
-						if(this.distanceFrom(t) <= AGRODISTANCE)
-						{
+			if(this instanceof Healer){
+				Thing t = myworld.findClosestDamagedFriendlyUnit(this);
+				if(t!=null && t.getPlayer()==this.getPlayer() && t.health()<t.maxHealth()) {
+					if(t.distanceFrom(this)<range){
+						t.heal(-this.getDamage());
+					} else {
+						this.moveToward(t.x()+t.w()/2, t.y()+t.h()/2);
+					}
+				}
+			} else if(attackmode) {
+				for(Thing t : allThings()) {
+					if(t instanceof Unit) {
+						if(this.distanceFrom(t) <= AGRODISTANCE) {
 							insertAbility(Action.ATTACK, t);
 						}
 						else

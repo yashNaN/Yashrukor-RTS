@@ -18,7 +18,7 @@ public class Healer extends Unit {
 		type = HEALER;
 		setHealth(350);
 		movespeed = 5;
-		damage = -4;
+		damage = -10;
 		range = 100;
 		attackspeed = 1;
 		goldcost = 15;

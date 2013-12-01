@@ -243,31 +243,42 @@ public class World extends JPanel{
 		}
 		return null;
 	}
-	public Thing findFriendly(Unit u) {
-//		ArrayList<Thing> posstargets = new ArrayList<Thing>();
-		ArrayList<Integer> dist = new ArrayList<Integer>();
+	/**
+	 * @param u
+	 * @return the closest Unit to u of the same Player
+	 */
+	public Unit findClosestFriendlyUnit(Unit u) {
+		int mindistance = 0;
+		Unit closest = null;
 		for(Thing t : getAllThings()) {
-			if(t.getPlayer()==u.getPlayer()){
-//				System.out.println("findEnemy: cansee the "+t.toString()+"="+u.canSee(t));
-				if(u.canSee(t)) {
-					int distance = (int) u.distanceFrom(t);
-					if(distance<=Unit.AGRODISTANCE) {
-						return t;
-//						for(int a=0; a<dist.size(); a++) {
-//							if(distance>=dist.get(a)) {
-//								posstargets.add(a, t);
-//								dist.add(a, distance);
-//								break;
-//							}
-//						}
-					}
+			if(t instanceof Unit && t.getPlayer()==u.getPlayer()){
+				int distance = (int) u.distanceFrom(t);
+				if(closest == null || distance<mindistance) {
+					closest = (Unit)t;
+					mindistance = distance;
 				}
 			}
 		}
-//		if(posstargets.size()<=0)
-//			return null;
-//		return posstargets.get(0);
-		return null;
+		return closest;
+	}
+	/**
+	 * used for the Healer to find what to heal
+	 * @param u
+	 * @return the closest Unit to u of the same Player or null of none exist
+	 */
+	public Unit findClosestDamagedFriendlyUnit(Unit u) {
+		int mindistance = 0;
+		Unit closest = null;
+		for(Thing t : getAllThings()) {
+			if(t instanceof Unit && t.getPlayer()==u.getPlayer() && ((Unit)t).health()<((Unit)t).maxHealth()){
+				int distance = (int) u.distanceFrom(t);
+				if(closest == null || distance<mindistance) {
+					closest = (Unit)t;
+					mindistance = distance;
+				}
+			}
+		}
+		return closest;
 	}
 	public Thing getOneThingThatCollides(Point p){
 		for(Unit u:getUnits()){
@@ -615,11 +626,10 @@ public class World extends JPanel{
 				if(k.is("a")) {
 					for(Thing t : selected){
 						Point tar = null;
-						if(this.getMainCamera().inCamera(frame.currentMouse())){
-							tar=this.getMainCamera().getPoint(frame.currentMouse());
-						}
 						if(this.getMiniCamera().inCamera(frame.currentMouse())){
 							tar=this.getMiniCamera().getPoint(frame.currentMouse());
+						} else if(this.getMainCamera().inCamera(frame.currentMouse())){
+							tar=this.getMainCamera().getPoint(frame.currentMouse());
 						}
 						if(tar != null && t instanceof Unit){
 							Unit u = (Unit)t;

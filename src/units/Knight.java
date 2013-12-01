@@ -41,12 +41,6 @@ public class Knight extends Unit {
 		g.setFont(new Font("Arial", Font.PLAIN, 40));
 		g.drawString("Knight", x+40, y+50);
 	}
-//	@Override
-//	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {
-//		g.setColor(Color.red);
-//		g.fillRect(x,y,w,h);
-//	}
-	//@Override
 	@Override
 	public int getDamage() {
 		// TODO Auto-generated method stub
