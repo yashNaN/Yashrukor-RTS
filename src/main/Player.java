@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -61,6 +62,11 @@ public class Player {
 		ii = new ImageIcon("resources//images//Stone.png");
 		STONE = ii.getImage();
 	}
+	/**
+	 * checks if clicked on the choose idle worker button
+	 * @param e
+	 * @return
+	 */
 	public boolean press(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
@@ -70,13 +76,14 @@ public class Player {
 		return false;
 	}
 	public boolean chooseidleworker() {
-		Worker w = myworld.getaworker(this);
+		Worker w = myworld.getIdleWorker(this);
 		if(w!=null) {
-			myworld.selected.clear();
+			myworld.clearSelected();
 			myworld.selected.add(w);
 			myworld.maincamera.moveTo(w.x, w.y);
 			return true;
 		}
+
 		return false;
 	}
 	public void draw(Graphics2D g, int x, int y, int w, int h) {

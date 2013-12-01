@@ -653,7 +653,6 @@ public class World extends JPanel{
 								u.attackmode = false;
 							else
 								u.attackmode = true; 
-//							System.out.println(u.attackmode);
 						}
 					}
 				}
@@ -679,6 +678,17 @@ public class World extends JPanel{
 		for(Thing t : selected) {
 			if(t instanceof Worker) {
 				return (Worker)t;
+			}
+		}
+		return null;
+	}
+	public Worker getIdleWorker(Player p) { 
+		for(Unit u : getUnits()) {
+			if(u instanceof Worker && u.getPlayer()==p) {
+				Worker w = (Worker)u;
+				if(!w.busy) {
+					return w;
+				}
 			}
 		}
 		return null;

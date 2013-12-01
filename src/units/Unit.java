@@ -81,7 +81,10 @@ public abstract class Unit extends Thing{
 	public Thing ttt=null;
 	private ImageIcon icon;
 	private boolean stopped=false;
-	public boolean busy=false;
+	/**
+	 * busy is used only for Workers. 
+	 */
+	public boolean busy = false;
 	public ArrayList<Action> actionqueue = new ArrayList<Action>();
 	abstract public int getDamage();
 	public Unit(int race,int type, int direction, int x, int y, ImageIcon icon){
