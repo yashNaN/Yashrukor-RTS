@@ -129,7 +129,7 @@ Units:
 	Swordsman: Swordsman are the grunt Units of the game. They are melee Units so they have a low attack range and they have decent health and attack, and low move speeed.
 		   Swordsman are trained from the Brracks. 
 	Knight: Are the elite non-hero Units of the game. They have high attack, health, and move speed compared to other Units but they are still weaker than Heros.
-		Knight are created from the Stable
+		Knights are created from the Stable
 	Worker: Workers are the basis of the game. They have the ability to construct and repair buildings. Workers can be created from the Town Hall. 
 
 Step 3: Playing the Game
