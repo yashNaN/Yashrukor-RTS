@@ -237,7 +237,7 @@ public class Frame extends JFrame implements ActionListener{
 					lastpoint=world.getMainCamera().getPoint(e.getX(), e.getY());
 					leftmousedown = true;
 					if(world.whatIsHere(lastpoint)!=null){
-						world.debug.add(world.whatIsHere(lastpoint).toString());
+						world.addDebug(world.whatIsHere(lastpoint).toString());
 					}
 				}
 				if(world.vselected==true)

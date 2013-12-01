@@ -143,7 +143,7 @@ public class NPC extends Player{
 			}
 		}
 		for(int a=0; a<100; a++) {
-			myworld.debug.add("Randoming loc");
+			myworld.addDebug("Randoming loc");
 			int xx = (int)(Math.random()*(myworld.MAXX-myworld.MINX)-myworld.MINX);
 			int yy = (int)(Math.random()*(myworld.MAXY-myworld.MINY)-myworld.MINY);
 			Rectangle r = new Rectangle(xx, yy, 100, 100);

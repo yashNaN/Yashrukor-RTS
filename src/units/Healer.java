@@ -7,8 +7,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import buildings.Building;
-
 public class Healer extends Unit {
 	private Image image;
 	static ImageIcon icon=new ImageIcon("resources//images//Healer.gif");

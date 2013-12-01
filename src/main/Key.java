@@ -10,10 +10,9 @@ public class Key {
 	 */
 	private String name;
 	/**
-	 * the KeyEvent id of this
-	 * ex: KeyEvent.VK_UP
+	 * the keyCode of this, found using KeyEvent.getKeyCode();
 	 */
-	private int id;
+	private int keyCode;
 	/**
 	 * used to know if you already checked this keypress
 	 * ex: escape opens and closes menu, but if you hold down
@@ -25,9 +24,9 @@ public class Key {
 	 * @param sname ex: "w"
 	 * @param sid ex: KeyEvent.VK_W
 	 */
-	public Key(String sname, int sid) {
+	public Key(String sname, int skeyCode) {
 		name = sname;
-		id = sid;
+		keyCode = skeyCode;
 		checked = false;
 		pressed = false;
 	}
@@ -72,17 +71,11 @@ public class Key {
 	public void uncheck() {
 		checked = false;
 	}
-	/**
-	 * @return <code>name</code>
-	 */
-	public String name() {
-		return name;
-	}
 	/** 
-	 * (ex: KeyEvent.VK_S)
-	 * @return <code>id</code> 
+	 * returns the keyCode of this Key, ex: KeyEvent.VK_S
+	 * @return <code>keyCode</code> 
 	 */
-	public int id() {
-		return id;
+	public int getKeyCode() {
+		return keyCode;
 	}
 }

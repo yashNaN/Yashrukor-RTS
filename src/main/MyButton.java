@@ -9,50 +9,68 @@ import javax.swing.JButton;
 
 public class MyButton extends JButton{
 	/**
-	 * The mode of this button, used to easily cycle through menus
+	 * The modes of this button, used to easily cycle through menus
 	 */
-	//private int mode;
 	private int[] modes;
 	/**
 	 * <code>perx</code> is the percentage of the width of the <code>Frame</code> where this button should be put.
 	 * For example:
-	 * <code>perx</code>=.2 means this button will go left of the center of the <code>Frame</code>
+	 * <code>perx</code>=.2 means that on a 1000 wide <code>Frame</code>, this button will go on 200 
 	 */
 	protected double perx;
 	/**
 	 * <code>pery</code> is the percentage of the height of the <code>Frame</code> where this button should be put.
 	 * For example:
-	 * <code>pery</code>=.2 means this button will go above of the center of the <code>Frame</code>
+	 * <code>pery</code>=.2 means that on a 800 tall <code>Frame</code>, this button will go on 160 
 	 */
 	protected double pery;
 	/**
-	 * If <code>true</code>, will always be visible, even if the <code>mode</code> is switched.
+	 * If <code>true</code>, will always be visible regardless of the current mode.
 	 */
 	private boolean alwaysvisible;
+	/**
+	 * The image of this button if custom graphic is desired.
+	 */
 	protected Image image;
-	private Color color=Color.orange;
-	//image=new ImageIcon("Images/Farm.gif").getImage();
-	public MyButton(String name, int[] smode, double x, double y) {
+	/**
+	 * the color of this button, orange by default
+	 */
+	private Color color;
+	/**
+	 * basic constructor
+	 * @param name the title of the button to appear on screen
+	 * @param smode array of the possible modes
+	 */
+	public MyButton(String name, int[] smode, double perx, double pery) {
 		super(name);
 		modes = smode;
-		perx = x;
-		pery = y;
+		this.perx = perx;
+		this.pery = pery;
 		alwaysvisible = false;
+		color = Color.ORANGE;
 	}
-	public MyButton(String name,Image i, int[] smode, double x, double y) {
+	/**
+	 * advanced constructor if custom image is desired.
+	 */
+	public MyButton(String name, Image i, int[] smode, double x, double y) {
 		super(name);
 		image=i;
 		modes = smode;
 		perx = x;
 		pery = y;
 		alwaysvisible = false;
+		color = Color.ORANGE;
 	}
 	/**
-	 * Sets <code>alwaysvisible</code> to <code>true</code>.
+	 * sets color to c
+	 * @param c the new Color
 	 */
 	public void setColor(Color c){
 		color=c;
 	}
+	/**
+	 * Sets <code>alwaysvisible</code> to <code>true</code>.
+	 */
 	public void setAlwaysVisible() {
 		alwaysvisible = true;
 	}
@@ -70,9 +88,9 @@ public class MyButton extends JButton{
 	 * Sets <code>this</code> invisible if different mode and !<code>alwaysvisible</code>.
 	 */
 	public void refreshVisible(int newmode) {
-//		if(alwaysvisible) {
-//			this.setVisible(true);
-//		} else {
+		if(alwaysvisible) {
+			this.setVisible(true);
+		} else {
 			for(int c=0; c<modes.length; c++) {
 				if(newmode==modes[c]) {
 					this.setVisible(true);
@@ -80,7 +98,7 @@ public class MyButton extends JButton{
 				}
 			}
 			this.setVisible(false);
-//		}
+		}
 	}
 	public void drawselected(Graphics2D g) {
 		if(this.isVisible()) {
@@ -98,9 +116,8 @@ public class MyButton extends JButton{
 			if(image==null){
 				g.setColor(color);
 				g.fillRect(this.getLocation().x, this.getLocation().y, this.getSize().width, this.getSize().height);
-			}
-			else if(image!=null){
-				g.setColor(Color.RED);
+			} else if(image!=null){
+				g.setColor(Color.BLACK);
 				g.drawRect(this.getLocation().x, this.getLocation().y, this.getSize().width, this.getSize().height);
 				g.drawImage(image,this.getLocation().x,this.getLocation().y,this.getSize().width,this.getSize().height,null);
 			}

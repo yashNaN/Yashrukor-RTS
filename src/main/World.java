@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,21 +23,46 @@ import units.*;
 
 
 public class World extends JPanel{
+	/**
+	 * left most boundary of world
+	 */
 	public final int MINX = -2000;
+	/**
+	 * top most boundary of world
+	 */
 	public final int MINY = -2000;
+	/**
+	 * right most boundary of world
+	 */
 	public final int MAXX = 2000;
+	/**
+	 * bottom most boundary of world
+	 */
 	public final int MAXY = 2000;
-	public ArrayList<String> debug = new ArrayList<String>();
-	public int removestring;
+	/**
+	 * debug output on screen, also used for game updates like Player soandso was defeated, etc
+	 */
+	private ArrayList<String> debug = new ArrayList<String>();
+	/**
+	 * Time in tics until oldest debug output String is removed
+	 */
+	private int removestring;
+	/**
+	 * amount of tics for debug ouput String to be removed
+	 */
+	private final int DEBUGSTRINGREMOVALSPEED = 80;
+	
 	public static final int MAINCAMERAMOVESPEED = 20;
 	private ArrayList<Key> keyboard = new ArrayList<Key>();
 	private ArrayList<Unit> units = new ArrayList<Unit>();
 	private ArrayList<Building> buildings = new ArrayList<Building>();
 	private ArrayList<Player> players = new ArrayList<Player>();
 	Color[]colors={Color.red,Color.yellow,Color.green,Color.blue,Color.pink};
-//	private ArrayList<MyButton>buttons=new ArrayList<MyButton>();
 	boolean addedunit = false;
 	public Player thisplayer;
+	/**
+	 * stops the Timer's actionPerformed from doing anything while this is true
+	 */
 	private boolean PAUSED=true;
 	private boolean won=false;
 	public Rectangle select;
@@ -57,13 +83,12 @@ public class World extends JPanel{
 	public boolean isbuilding=false;
 	
 	int[]yolo={0};
-	public World(Frame fr){
-		frame = fr;
-		ImageIcon ii = new ImageIcon("resources//images//underconstruction.png");
-		Building.underconstruction = ii.getImage();
+	public World(Frame frame){
+		this.frame = frame;
 		vselected = false;
 		Thing.myworld = this;
-//		updateButtons();
+		initializeImages();
+		
 		thisplayer = new Player(Unit.HUMAN, colors[2], this);
 		thisplayer.setName("SirSwagalot");
 		NPC enemy=new NPC(Unit.ORC,colors[0], this);
@@ -181,6 +206,9 @@ public class World extends JPanel{
 			enemy3.setHero(new Hero("Finneo",0,-1000,1000));
 		}
 		
+	}
+	public void initializeImages() {
+		Building.underconstruction = new ImageIcon("resources//images//underconstruction.png").getImage();
 	}
 	public Thing findClosestEnemy(Unit u) {
 		Thing closest = null;
@@ -369,15 +397,21 @@ public class World extends JPanel{
 		}
 		removestring++;
 		if(debug.size()>=20)
-			removestring=100;
-		if(removestring>80) {
-			if(debug.size()==0) {
-				removestring=-20;
-			} 
-			else {
-				debug.remove(0);removestring=0;
+			removestring+=DEBUGSTRINGREMOVALSPEED/10;
+		if(removestring>DEBUGSTRINGREMOVALSPEED) {
+			if(debug.size()!=0) {
+				debug.remove(0);
+				removestring=0;
 			}
+			removestring=0;
 		}
+	}
+	/**
+	 * adds String s to debug output list
+	 * @param s is added to the end of Arraylist<String> debug
+	 */
+	public void addDebug(String s) {
+		debug.add(s);
 	}
 	public void removeDestroyedThings() {
 		if(this.getBuildings().size()>0) {
@@ -569,14 +603,14 @@ public class World extends JPanel{
 	}
 	public void keyPressed(int id) {
 		for(Key k : keyboard) {
-			if(k.id()==id) {
+			if(k.getKeyCode()==id) {
 				k.press();
 			}
 		}
 	}
 	public void keyReleased(int id) {
 		for(Key k : keyboard) {
-			if(k.id()==id) {
+			if(k.getKeyCode()==id) {
 				k.release();
 				if(k.is("a")) {
 					for(Thing t : selected){

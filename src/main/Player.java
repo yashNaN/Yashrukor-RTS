@@ -169,10 +169,10 @@ public class Player {
 	public void lose(){
 		lost=true;
 		System.out.println(name+" just lost.");
-		myworld.debug.add(name+" just lost.");
+		myworld.addDebug(name+" just lost.");
 	}
 	public void win(){
-		myworld.debug.add(name+" won.");
+		myworld.addDebug(name+" won.");
 	}
 	public World getWorld(){
 		return myworld;
