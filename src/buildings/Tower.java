@@ -23,8 +23,6 @@ public class Tower extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new Tower(race, x, y);
 	}
-	public void makeUnit() {
-	}
 	@Override
 	public void tic() {
 		if(constructed){

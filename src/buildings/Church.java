@@ -19,15 +19,12 @@ import units.Swordsman;
 import units.Unit;
 
 public class Church extends Building{
-	//makes Healers
-	boolean timing=false;
-	int count=0;
-	int ticcount=50;
 	private ArrayList<Healer>clist=new ArrayList<Healer>();
 //	private Image image;
 	public Church(int race,int x,int y){
 		super(7, 2500, 210, race, 80, 40, 50, Unit.HEALER, x, y);
 		image=new ImageIcon("resources//images//Church.gif").getImage();
+		this.addPossibleUnit(Unit.HEALER);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new Church(race, x, y);
@@ -41,11 +38,6 @@ public class Church extends Building{
 			Unit u = createandcollectUnit();
 			if(u!=null)
 				myworld.getUnits().add(u);
-		}
-	}
-	public void makeUnit(){
-		if(constructed){
-			timing=true;
 		}
 	}
 	public int getUnitCost(){

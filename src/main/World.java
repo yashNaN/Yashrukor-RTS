@@ -22,11 +22,11 @@ import javax.swing.SwingUtilities;
 import units.*;
 
 
-public class World extends JPanel{
+public class World extends JPanel {
 	/**
 	 * disables of enables Fog of War
 	 */
-	public static final boolean FOW = true;
+	public static final boolean FOW = false;
 	/**
 	 * left most boundary of world
 	 */
@@ -119,20 +119,20 @@ public class World extends JPanel{
 		keyboard.add(new Key("h",KeyEvent.VK_H));//TOWNHALL
 		keyboard.add(new Key("v",KeyEvent.VK_V));//BLINK
 		keyboard.add(new Key("x",KeyEvent.VK_X));//BLADESDANCE
-		keyboard.add(new Key("z",KeyEvent.VK_Z)); // Ability Button 
+		keyboard.add(new Key("z",KeyEvent.VK_Z)); // Ability Button
 		keyboard.add(new Key("e",KeyEvent.VK_E)); //toggle attack mode
 		keyboard.add(new Key("space",KeyEvent.VK_SPACE));//SELECTED BUILDINGS BUILD
-		keyboard.add(new Key("up",KeyEvent.VK_UP));//MOVEMENT
-		keyboard.add(new Key("left",KeyEvent.VK_LEFT));//MOVEMENT 
-		keyboard.add(new Key("down",KeyEvent.VK_DOWN));//MOVEMENT
-		keyboard.add(new Key("right",KeyEvent.VK_RIGHT));//MOVEMENT
+		keyboard.add(new Key("up",KeyEvent.VK_UP));//Camera MOVEMENT
+		keyboard.add(new Key("left",KeyEvent.VK_LEFT));//Camera MOVEMENT
+		keyboard.add(new Key("down",KeyEvent.VK_DOWN));//Camera MOVEMENT
+		keyboard.add(new Key("right",KeyEvent.VK_RIGHT));//Camera MOVEMENT
 		keyboard.add(new Key("esc",KeyEvent.VK_ESCAPE));//CANCEL
-		keyboard.add(new Key("F10",KeyEvent.VK_F10));//MENU
+		keyboard.add(new Key("F10",KeyEvent.VK_F10));//Open MENU
 		keyboard.add(new Key("del",KeyEvent.VK_DELETE));//SELL BUILDING
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		
-		Worker work=new Worker(thisplayer.race(),0,500,850); 	
+		Worker work=new Worker(thisplayer.race(),0,500,850);
 		work.setPlayer(thisplayer);
 		units.add(work);
 		
@@ -501,12 +501,8 @@ public class World extends JPanel{
 						for(Thing t:selected){
 							if(t instanceof Building) {
 								Building b = (Building)t;
-								if(t.getPlayer().gold()>=b.getUnitGoldCost() && t.getPlayer().food()>=b.getUnitFoodCost() && t.getPlayer().wood()>=b.getUnitWoodCost()){
-									b.makeUnit();
-									t.getPlayer().addGold(-b.getUnitGoldCost());
-									t.getPlayer().addFood(-b.getUnitFoodCost());
-									t.getPlayer().addWood(-b.getUnitWoodCost());
-								}
+								b.tryToStartUnit(b.getPossibleUnits().get(0).type);
+								
 							}
 						}
 					}

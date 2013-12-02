@@ -38,8 +38,6 @@ public class LumberMill extends Building{
 			stic=0;
 		}
 	}
-	public void makeUnit() {
-	}
 	public void drawGUI(Graphics2D g, int x, int y, int w, int h) {
 		super.drawGUI(g, x, y, w, h);
 		g.setColor(Color.white);

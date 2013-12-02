@@ -22,14 +22,12 @@ public class TownHall extends Building{
 	//makes workers
 	private int gold=0;
 	private int goldtic=0;
-	boolean timing=false;
-	int count=0;
-	int ticcount=30;
 	private ArrayList<Worker>workerlist=new ArrayList<Worker>();
 	private String name="Town Hall";
 	public TownHall(int race, int x, int y){
 		super(Building.TOWNHALL, 4500, 300, race, 100, 100, 300, Unit.WORKER, x, y);
 		image=new ImageIcon("resources//images//TownHall.gif").getImage();
+		this.addPossibleUnit(Unit.WORKER);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new TownHall(race, x, y);
@@ -50,11 +48,6 @@ public class TownHall extends Building{
 			Unit u = createandcollectUnit();
 			if(u!=null)
 				myworld.getUnits().add(u);
-		}
-	}
-	public void makeUnit(){
-		if(constructed){
-			timing=true;
 		}
 	}
 	public Unit createandcollectUnit(){

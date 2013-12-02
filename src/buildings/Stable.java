@@ -19,15 +19,12 @@ import units.Worker;
 
 
 public class Stable extends Building{
-	//makes Knights
-	boolean timing=false;
-	int count=0;
-	int ticcount=60;
 	private ArrayList<Knight>knightlist=new ArrayList<Knight>();
 //	private Image image;
 	public Stable(int race,int x,int y){
 		super(8, 3000, 250, race, 60, 50, 70, 4, x, y);
 		image=new ImageIcon("resources//images//Stables.gif").getImage();
+		this.addPossibleUnit(Unit.KNIGHT);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new Stable(race, x, y);
@@ -41,11 +38,6 @@ public class Stable extends Building{
 			Unit u = createandcollectUnit();
 			if(u!=null)
 				myworld.getUnits().add(u);
-		}
-	}
-	public void makeUnit(){
-		if(constructed){
-			timing=true;
 		}
 	}
 	public int getUnitGoldCost() {

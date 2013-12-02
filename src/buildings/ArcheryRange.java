@@ -19,15 +19,11 @@ import units.Worker;
 
 
 public class ArcheryRange extends Building{
-	//makes Archers
-//	private Image image;
-	boolean timing=false;
-	int count=0;
-	int ticcount=50;
 	private ArrayList<Archer>archerlist=new ArrayList<Archer>();
 	public ArcheryRange(int race,int x,int y){
 		super(5, 3000, 220, race, 100, 30, 50, Unit.ARCHER, x, y);
 		image=new ImageIcon("resources//images//ArcheryRange.png").getImage();
+		this.addPossibleUnit(Unit.ARCHER);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new ArcheryRange(race, x, y);
@@ -41,11 +37,6 @@ public class ArcheryRange extends Building{
 			Unit u = createandcollectUnit();
 			if(u!=null)
 				myworld.getUnits().add(u);
-		}
-	}
-	public void makeUnit(){
-		if(constructed){
-			timing=true;
 		}
 	}
 	public int getUnitGoldCost() {

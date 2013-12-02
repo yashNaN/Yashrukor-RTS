@@ -3,29 +3,19 @@ package buildings;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.Timer;
-
-import main.*;
-
-import units.Archer;
 import units.Swordsman;
 import units.Unit;
 
 public class Barracks extends Building{
 	//makes Swordsmen
-	boolean timing=false;
-	int count=0;
-	int ticcount=40;
-	private ArrayList<Swordsman>smlist=new ArrayList<Swordsman>();
+//	private ArrayList<Swordsman>smlist=new ArrayList<Swordsman>();
 	public Barracks(int race,int x,int y){
 		super(6, 3000, 200, race, 60, 40, 30, Unit.SWORDSMAN, x, y);
 		image=new ImageIcon("resources//images//Barracks.gif").getImage();
+		this.addPossibleUnit(Unit.SWORDSMAN);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new Barracks(race, x, y);
@@ -39,11 +29,6 @@ public class Barracks extends Building{
 			Unit u = createandcollectUnit();
 			if(u!=null)
 				myworld.getUnits().add(u);
-		}
-	}
-	public void makeUnit(){
-		if(constructed){
-			timing=true;
 		}
 	}
 	public int getUnitGoldCost() {
@@ -88,12 +73,12 @@ public class Barracks extends Building{
 //		}
 //		return null;
 //	}
-	public boolean hasUnits(){
-		if(smlist.size()>0){
-			return true;
-		}
-		return false;
-	}
+//	public boolean hasUnits(){
+//		if(smlist.size()>0){
+//			return true;
+//		}
+//		return false;
+//	}
 	public void drawGUI(Graphics2D g, int x, int y, int w, int h) {
 		super.drawbuildGUI(g, x, y, w, h);
 		g.setColor(Color.white);

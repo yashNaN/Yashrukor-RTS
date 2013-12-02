@@ -234,41 +234,49 @@ public class Frame extends JFrame implements ActionListener{
 			currentmousepos.y = e.getY();
 			if(newgamemenu==null){
 				if(e.getButton()==MouseEvent.BUTTON1) {
-					lastpoint=world.getMainCamera().getPoint(e.getX(), e.getY());
+					if(world.getMainCamera().inCamera(e.getPoint())) {
+						lastpoint=world.getMainCamera().getPoint(e.getX(), e.getY());
+					} else {
+						lastpoint = null;
+					}
 					leftmousedown = true;
-					if(world.whatIsHere(lastpoint)!=null){
+					if(lastpoint!=null && world.whatIsHere(lastpoint)!=null){
 						world.addDebug(world.whatIsHere(lastpoint).toString());
 					}
-				}
-				if(world.vselected==true)
-				{
-					for(Thing t : world.selected){
-						if(t instanceof Hero &&((Hero)t).getName().equals("Slender")){
-							world.vselected = false;
-							((Hero)t).blinkpos = lastpoint;
-							if(shiftdown) {
-								((Hero)t).addAbility((((Hero)t).getAbilityNumber(Action.BLINK)));
-							} else {
-								((Hero)t).useAbility(((Hero)t).getAbilityNumber(Action.BLINK));
-							}
+//					world.addDebug("clicking on spot:"+e.getX()+","+e.getY());
+//					System.out.println("CLICK");
+					for(Thing t : world.selected) {
+						if(t instanceof Building) {
+							Building b = (Building) t;
+							b.click(e.getPoint());
 						}
 					}
 				}
-				if(world.xselected == true)
-				{
-					for(Thing t: world.selected)
-					{
-						if(t instanceof Hero && ((Hero)t).getName().equals("Slender"))
-						{
-							world.xselected = false;
-							if(shiftdown) {
-								((Hero)t).addAbility(((Hero)t).getAbilityNumber(Action.BLADESDANCE), currentmousepos.x, currentmousepos.y);
-							} else {
-								((Hero)t).useAbility(((Hero)t).getAbilityNumber(Action.BLADESDANCE), currentmousepos.x, currentmousepos.y);
-							}
-						}	
-					}
-				}
+//				if(world.vselected==true) {
+//					for(Thing t : world.selected) {
+//						if(t instanceof Hero &&((Hero)t).getName().equals("Slender")) {
+//							world.vselected = false;
+//							((Hero)t).blinkpos = lastpoint;
+//							if(shiftdown) {
+//								((Hero)t).addAbility((((Hero)t).getAbilityNumber(Action.BLINK)));
+//							} else {
+//								((Hero)t).useAbility(((Hero)t).getAbilityNumber(Action.BLINK));
+//							}
+//						}
+//					}
+//				}
+//				if(world.xselected == true) {
+//					for(Thing t: world.selected) {
+//						if(t instanceof Hero && ((Hero)t).getName().equals("Slender")) {
+//							world.xselected = false;
+//							if(shiftdown) {
+//								((Hero)t).addAbility(((Hero)t).getAbilityNumber(Action.BLADESDANCE), currentmousepos.x, currentmousepos.y);
+//							} else {
+//								((Hero)t).useAbility(((Hero)t).getAbilityNumber(Action.BLADESDANCE), currentmousepos.x, currentmousepos.y);
+//							}
+//						}	
+//					}
+//				}
 				if(world.isbuilding==true&&canBuild(world.thisplayer.resources(),world.buildthis.resources())){
 					boolean overlaps=false;
 					Building f;
@@ -343,10 +351,12 @@ public class Frame extends JFrame implements ActionListener{
 
 					if(world.thisplayer.press(e))
 						return;
-					world.clearSelected();
-					Point p = world.getMainCamera().getPoint(e.getX(), e.getY());
-					world.select = Camera.fixRectangle(lastpoint.x, lastpoint.y, p.x-lastpoint.x, p.y-lastpoint.y);
-					world.chooseThings();
+					if(lastpoint!=null) {
+						world.clearSelected();
+						Point p = world.getMainCamera().getPoint(e.getX(), e.getY());
+						world.select = Camera.fixRectangle(lastpoint.x, lastpoint.y, p.x-lastpoint.x, p.y-lastpoint.y);
+						world.chooseThings();
+					}
 					leftmousedown = false;
 				}
 //				int x=lastpoint.x;

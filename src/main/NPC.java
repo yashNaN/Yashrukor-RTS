@@ -57,10 +57,10 @@ public class NPC extends Player{
 			for(Building b:mybuildings){
 				if(b instanceof TownHall) {
 					if(Math.random()*100>numofworkers*11) {
-						b.makeUnit();
+						b.tryToStartUnit(b.getPossibleUnitType());
 					}
 				} else {
-					b.makeUnit();
+					b.tryToStartUnit(b.getPossibleUnitType());
 				}
 				unittic=0;
 			}

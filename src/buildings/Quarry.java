@@ -29,8 +29,6 @@ public class Quarry extends Building{
 		stone=0;
 		return ret;
 	}
-	public void makeUnit() {
-	}
 	@Override
 	public void tic() {
 		if(constructed){
