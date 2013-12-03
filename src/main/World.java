@@ -501,7 +501,7 @@ public class World extends JPanel {
 						for(Thing t:selected){
 							if(t instanceof Building) {
 								Building b = (Building)t;
-								b.tryToStartUnit(b.getPossibleUnits().get(0).type);
+								b.tryToStartUnit(b.getPossibleUnitType());
 								
 							}
 						}

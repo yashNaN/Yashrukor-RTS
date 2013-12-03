@@ -43,6 +43,7 @@ public abstract class Building extends Thing{
 	public boolean detectedbyplayer = false;
 	
 	private ArrayList<UnitButton> possibleUnits;
+	private ArrayList<Unit> queue;
 	
 
 	boolean timing=false;
@@ -55,6 +56,7 @@ public abstract class Building extends Thing{
 	public Building(int type,int health,int buildtime,int race,int wood,int stone,int gold,int spawntype,int x,int y){
 		super();
 		possibleUnits = new ArrayList<UnitButton>();
+		queue = new ArrayList<Unit>();
 		VISIONDISTANCE = 400;
 		super.setMaxHealth(health);
 		this.setHealth(this.getMaxHealth()/10);
@@ -104,7 +106,7 @@ public abstract class Building extends Thing{
 		if(constructed) {
 			return distanceFrom(other)<VISIONDISTANCE;
 		} else {
-			return distanceFrom(other)<200;
+			return distanceFrom(other)<150;
 		}
 	}
 	@Override
@@ -112,7 +114,7 @@ public abstract class Building extends Thing{
 		if(constructed) {
 			return distanceFrom(other)<VISIONDISTANCE;
 		} else {
-			return distanceFrom(other)<200;
+			return distanceFrom(other)<150;
 		}
 	}
 	public void draw(Graphics2D g, int x, int y, int w, int h) {
@@ -164,8 +166,8 @@ public abstract class Building extends Thing{
 	public Unit createandcollectUnit(){
 		return null;
 	}
-	public void unitTimeStart(){
-	}
+//	public void unitTimeStart(){
+//	}
 //	public boolean hasUnits(){
 //		return false;
 //	}
@@ -215,7 +217,8 @@ public abstract class Building extends Thing{
 		return stone;
 	}
 	public void makeUnit(int type) {
-		if(constructed){
+		if(constructed) {
+			queue.add(UnitFactory.createUnit(type));
 			timing=true;
 		}
 	}

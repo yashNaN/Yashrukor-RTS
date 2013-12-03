@@ -43,7 +43,7 @@ public class Church extends Building{
 	public int getUnitCost(){
 		return 15;
 	}
-	public Unit createandcollectUnit(){
+	public Unit createandcollectUnit() {
 		boolean found = false;
 		int tempcount = 0;
 		Healer a = null;
