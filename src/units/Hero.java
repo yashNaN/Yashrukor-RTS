@@ -23,7 +23,7 @@ public class Hero extends Unit {
 	int timer;
 	int timerBlink;
 	int timerBladesDance; 
-	int timerWarCry;
+	int timerWarCry; 
 	Frame heroframe = getWorld().getFrame();
 	boolean warcrycheck;
 	int mana, maxmana;
@@ -122,6 +122,10 @@ public class Hero extends Unit {
 	public void updateSuperInfo(int race){
 		super.setRace(race);
 	}
+	public int getTimerWarcry()
+	{
+		return timerWarCry;
+	}
 	@Override
 	public void tic(){
 		super.tic();
@@ -132,7 +136,7 @@ public class Hero extends Unit {
 		}
 		if(getName().equals("Finneo")){
 			timerWarCry--;
-			if(timerWarCry <= 598 && warcrycheck )
+			if(timerWarCry <= 560 && warcrycheck )
 			{
 				warcrycheck = false;
 				debuff();
@@ -391,10 +395,33 @@ public class Hero extends Unit {
 		attackspeed=attackspeed*2;
 	}
 	public void drawGUI(Graphics2D g, int x, int y, int w, int h) {
+		boolean blinkActive = false;
 		super.drawGUI(g, x, y, w, h);
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", Font.PLAIN, 40));
 		g.drawString(name, x+40, y+50);
+		if(getName().equals("Slender"))
+		{
+			g.drawString("Blink", x+40, y+110);
+			if(timerBlink <= 0)
+			{
+				timerBlink = 0;
+			}
+			g.drawString(": " + timerBlink/10, x+150, y +110);
+			if(timerBladesDance <= 0)
+			{
+				timerBladesDance = 0;
+			}
+			g.drawString("Blades Dance: " + timerBladesDance/10, x + 250, y+110);
+		}
+		if(getName().equals("Finneo"))
+		{
+			if(timerWarCry <= 0)
+			{
+				timerWarCry = 0;
+			}
+			g.drawString("Warcry: " + timerWarCry/10, x+40, y+110 );
+		}
 	}
 	public String toString() {
 		return "Hero";

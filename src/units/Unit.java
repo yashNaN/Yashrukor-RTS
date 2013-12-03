@@ -134,6 +134,10 @@ public abstract class Unit extends Thing{
 		this.icon=icon;
 	}
 	public void tic() {
+//		if(Hero.getTimerWarcry()<= 56)
+//		{
+//			debuff();
+//		}
 		if(actionqueue.size()==0) {
 			if(this instanceof Healer){
 				Thing t = myworld.findClosestDamagedFriendlyUnit(this);
