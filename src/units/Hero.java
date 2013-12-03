@@ -126,6 +126,7 @@ public class Hero extends Unit {
 	{
 		return timerWarCry;
 	}
+	//Trial change
 	@Override
 	public void tic(){
 		super.tic();
