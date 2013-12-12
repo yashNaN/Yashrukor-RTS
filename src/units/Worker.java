@@ -28,9 +28,9 @@ public class Worker extends Unit {
 		damage = 2;
 		range = 5;
 		attackspeed = 1;
-		goldcost = 0;
-		foodcost = 10;
-		woodcost = 10;
+		setGoldcost(0);
+		setFoodcost(10);
+		setWoodcost(10);
 		image=icon.getImage();
 		commands.add(Action.BUILD);
 		commands.add(Action.REPAIR);

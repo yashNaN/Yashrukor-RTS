@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import units.Healer;
 import units.Unit;
 
 
@@ -46,7 +47,7 @@ public abstract class Building extends Thing{
 	private ArrayList<Unit> queue;
 	
 
-	boolean timing=false;
+//	boolean timing=false;
 	/**
 	 * once count reaches ticcount, a unit is spawned
 	 */
@@ -163,9 +164,9 @@ public abstract class Building extends Thing{
 		int[] ret={(costGold())/2,(costWood())/2,(costStone())/2};
 		return ret;
 	}
-	public Unit createandcollectUnit(){
-		return null;
-	}
+//	public Unit createandcollectUnit(){
+//		return null;
+//	}
 //	public void unitTimeStart(){
 //	}
 //	public boolean hasUnits(){
@@ -216,13 +217,47 @@ public abstract class Building extends Thing{
 	public int costStone(){
 		return stone;
 	}
-	public void makeUnit(int type) {
+	public Unit makeUnit(int type) {
 		if(constructed) {
-			queue.add(UnitFactory.createUnit(type));
-			timing=true;
+			Unit newu = UnitFactory.createUnit(type);
+			queue.add(newu);
+			this.myworld.addDebug("CREATED UNIT:"+type);
+			return newu;
+		}
+		return null;
+	}
+	public void tic() {
+		if(queue.size()>0){
+			count++;
+		}
+		if(count>=ticcount && queue.size()>0){
+			Unit newunit = queue.remove(0);
+			initializeUnit(newunit);
+//			Unit u = createandcollectUnit();
+			if(newunit!=null)
+				myworld.getUnits().add(newunit);
+			count = 0;
 		}
 	}
-	public abstract void tic();
+	public void initializeUnit(Unit newunit) {
+		boolean found = false;
+		int tempcount = 0;
+		while(!found) {
+			tempcount++;
+			double ran = Math.random();
+			if(ran<.25) {
+				newunit.setPosition(x()-newunit.getWidth()-(int)(Math.random()*tempcount), (int) (y()-newunit.getHeight()+Math.random()*(h()+newunit.getHeight())));
+			} else if(ran<.5) {
+				newunit.setPosition(x()+w()+5+(int)(Math.random()*tempcount), (int) (y()-newunit.getHeight()+Math.random()*(h()+newunit.getHeight())));
+			} else if(ran<.75) {
+				newunit.setPosition((int) (x()-newunit.getWidth()+Math.random()*(w()+newunit.getWidth())), y()-newunit.getHeight()-(int)(Math.random()*tempcount));
+			} else {
+				newunit.setPosition((int) (x()-newunit.getWidth()+Math.random()*(w()+newunit.getWidth())), y()+h()+5+(int)(Math.random()*tempcount));
+			}
+			found = !myworld.doesthiscollide(newunit, 0, 0);
+		}
+		newunit.setPlayer(getPlayer());
+	}
 	public abstract void setDifficulty(int diff);
 	public void drawbuildGUI(Graphics2D g, int x, int y, int w, int h) {
 		super.drawGUI(g, x, y, w, h);
@@ -238,15 +273,19 @@ public abstract class Building extends Thing{
 			g.setColor(Color.black);
 			g.drawString(ub.type+"", x+w-250+ub.bounds.x, y+h-20+ub.bounds.y);
 		}
+		g.setColor(Color.white);
+		g.drawString(""+queue.size(), x+200, y+150);
 	}
 	/**
 	 * goes through UnitButtons and handles them accordingly
 	 * @param mouse the point on screen that was clicked
 	 */
 	public void click(Point mouse) {
-		for(UnitButton ub : possibleUnits) {
-			if(ub.click(mouse)) {
-				tryToStartUnit(ub.type);
+		if(this.constructed) {
+			for(UnitButton ub : possibleUnits) {
+				if(ub.click(mouse)) {
+					tryToStartUnit(ub.type);
+				}
 			}
 		}
 	}
@@ -261,11 +300,11 @@ public abstract class Building extends Thing{
 	}
 	public void tryToStartUnit(int type) {
 		if(type!=-1) {
-			if(getPlayer().gold()>=getUnitGoldCost() && getPlayer().food()>=getUnitFoodCost() && getPlayer().wood()>=getUnitWoodCost()){
-				makeUnit(type);
-				getPlayer().addGold(-getUnitGoldCost());
-				getPlayer().addFood(-getUnitFoodCost());
-				getPlayer().addWood(-getUnitWoodCost());
+			Unit newu = makeUnit(type);
+			if(newu!=null && getPlayer().gold()>=newu.getGoldcost() && getPlayer().food()>=newu.getFoodcost() && getPlayer().wood()>=newu.getWoodcost()){
+					getPlayer().addGold(-newu.getGoldcost());
+					getPlayer().addFood(-newu.getFoodcost());
+					getPlayer().addWood(-newu.getWoodcost());
 			} else {
 				myworld.addDebug("Not Enough Resources");
 			}

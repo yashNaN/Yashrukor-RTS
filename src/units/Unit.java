@@ -48,9 +48,9 @@ public abstract class Unit extends Thing{
 	 * how fast the Unit attacks, currently has no effect(all units attack same speed regardless of attackspeed)
 	 */
 	protected int attackspeed;
-	protected int woodcost;
-	protected int goldcost;
-	protected int foodcost;
+	private int woodcost;
+	private int goldcost;
+	private int foodcost;
 	private boolean buffed=false;
 	private int bufftic=0;
 	int buffduration=Integer.MAX_VALUE;
@@ -549,5 +549,23 @@ public abstract class Unit extends Thing{
 //	public boolean feelsLikeAttacking(Thing other) {
 //		return (this.distanceFrom(other)<=AGRODISTANCE);
 //	}
+	public int getWoodcost() {
+		return woodcost;
+	}
+	public void setWoodcost(int woodcost) {
+		this.woodcost = woodcost;
+	}
+	public int getGoldcost() {
+		return goldcost;
+	}
+	public void setGoldcost(int goldcost) {
+		this.goldcost = goldcost;
+	}
+	public int getFoodcost() {
+		return foodcost;
+	}
+	public void setFoodcost(int foodcost) {
+		this.foodcost = foodcost;
+	}
 	
 }

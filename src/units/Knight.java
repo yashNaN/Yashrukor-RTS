@@ -25,9 +25,9 @@ public class Knight extends Unit {
 		damage = 7;
 		range = 50;
 		attackspeed = 1;
-		goldcost = 20;
-		woodcost = 20;
-		foodcost = 20;
+		setGoldcost(20);
+		setWoodcost(20);
+		setFoodcost(20);
 		image=icon.getImage();
 	}
 	@Override

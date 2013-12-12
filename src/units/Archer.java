@@ -27,9 +27,9 @@ public class Archer extends Unit {
 		damage = 4;
 		range = 400;
 		attackspeed = 1;
-		goldcost = 5;
-		woodcost = 15;
-		foodcost = 10;
+		setGoldcost(5);
+		setWoodcost(15);
+		setFoodcost(10);
 		image=icon.getImage();
 	}
 	@Override

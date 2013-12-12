@@ -22,9 +22,9 @@ public class Healer extends Unit {
 		damage = -10;
 		range = 250;
 		attackspeed = 1;
-		goldcost = 15;
-		woodcost = 15;
-		foodcost = 15;
+		setGoldcost(15);
+		setWoodcost(15);
+		setFoodcost(15);
 		image=icon.getImage();
 	}
 	@Override

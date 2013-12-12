@@ -12,11 +12,11 @@ public class UnitButton {
 	/**
 	 * the type of unit, ex: Unit.HEALER or Unit.WORKER
 	 */
-	public int type;
+	public final int type;
 	/**
 	 * stored on screen coordinates of the last place this UnitButton was drawn
 	 */
-	private static int drawx, drawy;
+	private int drawx, drawy;
 	/**
 	 * initializes the UnitButton. the bounds Rectangle is created by calculating x using number
 	 * @param number is the amount of UnitButtons that have already been added to the building to calculate the amount x should shift.
@@ -41,6 +41,7 @@ public class UnitButton {
 	 * @return true if mouse is contained within the Rectangle drawx, drawy, bounds.width, bounds.height
 	 */
 	public boolean click(Point mouse) {
+		System.out.println(mouse+", "+drawx+","+drawy+","+bounds);
 		return (mouse.x>drawx && mouse.x<drawx+bounds.width && mouse.y>drawy && mouse.y<drawy+bounds.height);
 	}
 }

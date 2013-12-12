@@ -19,7 +19,7 @@ import units.Worker;
 
 
 public class ArcheryRange extends Building{
-	private ArrayList<Archer>archerlist=new ArrayList<Archer>();
+//	private ArrayList<Archer>archerlist=new ArrayList<Archer>();
 	public ArcheryRange(int race,int x,int y){
 		super(5, 3000, 220, race, 100, 30, 50, Unit.ARCHER, x, y);
 		image=new ImageIcon("resources//images//ArcheryRange.png").getImage();
@@ -28,17 +28,17 @@ public class ArcheryRange extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new ArcheryRange(race, x, y);
 	}
-	@Override
-	public void tic() {
-		if(timing==true){
-			count++;
-		}
-		if(count>=ticcount){
-			Unit u = createandcollectUnit();
-			if(u!=null)
-				myworld.getUnits().add(u);
-		}
-	}
+//	@Override
+//	public void tic() {
+//		if(timing==true){
+//			count++;
+//		}
+//		if(count>=ticcount){
+//			Unit u = createandcollectUnit();
+//			if(u!=null)
+//				myworld.getUnits().add(u);
+//		}
+//	}
 	public int getUnitGoldCost() {
 		return 20;
 	}
@@ -51,32 +51,32 @@ public class ArcheryRange extends Building{
 //	public int getUnitCost(){
 //		return 15;
 //	}
-	public Unit createandcollectUnit(){
-		boolean found = false;
-		int tempcount = 0;
-		Archer a = null;
-		while(!found && tempcount++<20) {
-			double ran = Math.random();
-			if(ran<.25) {
-				a=new Archer(getPlayer().race(),0,x()-Archer.WIDTH,(int) (y()-Archer.HEIGHT+Math.random()*(h()+Archer.HEIGHT)));
-			} else if(ran<.5) {
-				a=new Archer(getPlayer().race(),0,x()+w()+Archer.WIDTH,(int) (y()-Archer.HEIGHT+Math.random()*(h()+Archer.HEIGHT)));
-			} else if(ran<.75) {
-				a=new Archer(getPlayer().race(),0,(int) (x()-Archer.WIDTH+Math.random()*(w()+Archer.WIDTH)),y()-Archer.HEIGHT);
-			} else {
-				a=new Archer(getPlayer().race(),0,(int) (x()-Archer.WIDTH+Math.random()*(w()+Archer.WIDTH)),y()+h()+Archer.HEIGHT);
-			}
-			found = !myworld.doesthiscollide(a, 0, 0);
-		}
-		if(!found)
-			return null;
-		if(a==null)
-			return null;
-		a.setPlayer(getPlayer());
-		timing=false;
-		count=0;
-		return a;
-	}
+//	public Unit createandcollectUnit(){
+//		boolean found = false;
+//		int tempcount = 0;
+//		Archer a = null;
+//		while(!found && tempcount++<20) {
+//			double ran = Math.random();
+//			if(ran<.25) {
+//				a=new Archer(getPlayer().race(),0,x()-Archer.WIDTH,(int) (y()-Archer.HEIGHT+Math.random()*(h()+Archer.HEIGHT)));
+//			} else if(ran<.5) {
+//				a=new Archer(getPlayer().race(),0,x()+w()+Archer.WIDTH,(int) (y()-Archer.HEIGHT+Math.random()*(h()+Archer.HEIGHT)));
+//			} else if(ran<.75) {
+//				a=new Archer(getPlayer().race(),0,(int) (x()-Archer.WIDTH+Math.random()*(w()+Archer.WIDTH)),y()-Archer.HEIGHT);
+//			} else {
+//				a=new Archer(getPlayer().race(),0,(int) (x()-Archer.WIDTH+Math.random()*(w()+Archer.WIDTH)),y()+h()+Archer.HEIGHT);
+//			}
+//			found = !myworld.doesthiscollide(a, 0, 0);
+//		}
+//		if(!found)
+//			return null;
+//		if(a==null)
+//			return null;
+//		a.setPlayer(getPlayer());
+//		timing=false;
+//		count=0;
+//		return a;
+//	}
 //	public Unit collectUnit(){
 //		if(archerlist.size()>0){
 //			return archerlist.remove(0);

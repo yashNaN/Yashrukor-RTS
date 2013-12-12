@@ -28,14 +28,15 @@ public class TownHall extends Building{
 		super(Building.TOWNHALL, 4500, 300, race, 100, 100, 300, Unit.WORKER, x, y);
 		image=new ImageIcon("resources//images//TownHall.gif").getImage();
 		this.addPossibleUnit(Unit.WORKER);
-		this.addPossibleUnit(Unit.SWORDSMAN);
-		this.addPossibleUnit(Unit.ARCHER);
+//		this.addPossibleUnit(Unit.SWORDSMAN);
+//		this.addPossibleUnit(Unit.ARCHER);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new TownHall(race, x, y);
 	}
 	@Override
 	public void tic(){
+		super.tic();
 		if(constructed){
 			goldtic++;
 		}
@@ -43,54 +44,54 @@ public class TownHall extends Building{
 			gold+=5;
 			goldtic=0;
 		}
-		if(timing==true){
-			count++;
-		}
-		if(count>=ticcount){
-			Unit u = createandcollectUnit();
-			if(u!=null)
-				myworld.getUnits().add(u);
-		}
+//		if(timing==true){
+//			count++;
+//		}
+//		if(count>=ticcount){
+//			Unit u = createandcollectUnit();
+//			if(u!=null)
+//				myworld.getUnits().add(u);
+//		}
 	}
-	public Unit createandcollectUnit(){
-		boolean found = false;
-		int tempcount = 0;
-		Worker a = null;
-		while(!found && tempcount++<20) {
-			double ran = Math.random();
-			if(ran<.25) {
-				a=new Worker(getPlayer().race(),0,x()-Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
-			} else if(ran<.5) {
-				a=new Worker(getPlayer().race(),0,x()+w()+Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
-			} else if(ran<.75) {
-				a=new Worker(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()-Worker.HEIGHT);
-			} else {
-				a=new Worker(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()+h()+Worker.HEIGHT);
-			}
-			found = !myworld.doesthiscollide(a, 0, 0);
-		}
-		if(!found)
-			return null;
-		if(a==null)
-			return null;
-		a.setPlayer(getPlayer());
-		workerlist.add(a);
-		timing=false;
-		count=0;
-		return a;
-	}
-	public Unit collectUnit(){
-		if(workerlist.size()>0){
-			return workerlist.remove(0);
-		}
-		return null;
-	}
-	public boolean hasUnits(){
-		if(workerlist.size()>0){
-			return true;
-		}
-		return false;
-	}
+//	public Unit createandcollectUnit(){
+//		boolean found = false;
+//		int tempcount = 0;
+//		Worker a = null;
+//		while(!found && tempcount++<20) {
+//			double ran = Math.random();
+//			if(ran<.25) {
+//				a=new Worker(getPlayer().race(),0,x()-Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
+//			} else if(ran<.5) {
+//				a=new Worker(getPlayer().race(),0,x()+w()+Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
+//			} else if(ran<.75) {
+//				a=new Worker(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()-Worker.HEIGHT);
+//			} else {
+//				a=new Worker(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()+h()+Worker.HEIGHT);
+//			}
+//			found = !myworld.doesthiscollide(a, 0, 0);
+//		}
+//		if(!found)
+//			return null;
+//		if(a==null)
+//			return null;
+//		a.setPlayer(getPlayer());
+//		workerlist.add(a);
+//		timing=false;
+//		count=0;
+//		return a;
+//	}
+//	public Unit collectUnit(){
+//		if(workerlist.size()>0){
+//			return workerlist.remove(0);
+//		}
+//		return null;
+//	}
+//	public boolean hasUnits(){
+//		if(workerlist.size()>0){
+//			return true;
+//		}
+//		return false;
+//	}
 	public int collectResources(){
 		int ret=gold;
 		gold=0;

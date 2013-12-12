@@ -25,9 +25,9 @@ public class Swordsman extends Unit {
 		damage = 5;
 		range = 20;
 		attackspeed = 1;
-		goldcost = 5;
-		woodcost = 10;
-		foodcost = 10;
+		setGoldcost(5);
+		setWoodcost(10);
+		setFoodcost(10);
 		image=icon.getImage();
 	}
 	

@@ -410,7 +410,7 @@ public class World extends JPanel {
 			removeDestroyedThings();
 			checkDeadPlayers();
 		}
-		removestring++;
+		removestring+=debug.size();
 		if(debug.size()>=20)
 			removestring+=DEBUGSTRINGREMOVALSPEED/10;
 		if(removestring>DEBUGSTRINGREMOVALSPEED) {
@@ -494,19 +494,7 @@ public class World extends JPanel {
 					moveAllCameras(100, 0);
 				}
 				
-				//OPTION 1: BUILDINGS ACROSS TOP ROW OF KEYBOARD, B TO BUILD UNITS
-				//OPTION 2: BUILDINGS ASSIGNED TO 1ST LETTER OF THEIR NAME, SPACE FOR UNITS
-				else if(k.is("space")){
-					if(selected.size()>0&&addedunit==false){
-						for(Thing t:selected){
-							if(t instanceof Building) {
-								Building b = (Building)t;
-								b.tryToStartUnit(b.getPossibleUnitType());
-								
-							}
-						}
-					}
-				}
+				
 				
 				if(workerselected()){
 					if(k.is("a")){
@@ -623,6 +611,16 @@ public class World extends JPanel {
 		for(Key k : keyboard) {
 			if(k.getKeyCode()==id) {
 				k.release();
+				if(k.is("space")) {
+					if(selected.size()>0&&addedunit==false){
+						for(Thing t:selected){
+							if(t instanceof Building) {
+								Building b = (Building)t;
+								b.tryToStartUnit(b.getPossibleUnitType());
+							}
+						}
+					}
+				}
 				if(k.is("a")) {
 					for(Thing t : selected){
 						Point tar = null;
