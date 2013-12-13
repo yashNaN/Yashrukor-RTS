@@ -243,8 +243,6 @@ public class Frame extends JFrame implements ActionListener{
 					if(lastpoint!=null && world.whatIsHere(lastpoint)!=null){
 						world.addDebug(world.whatIsHere(lastpoint).toString());
 					}
-//					world.addDebug("clicking on spot:"+e.getX()+","+e.getY());
-//					System.out.println("CLICK");
 					for(Thing t : world.selected) {
 						if(t instanceof Building) {
 							Building b = (Building) t;
@@ -252,31 +250,6 @@ public class Frame extends JFrame implements ActionListener{
 						}
 					}
 				}
-//				if(world.vselected==true) {
-//					for(Thing t : world.selected) {
-//						if(t instanceof Hero &&((Hero)t).getName().equals("Slender")) {
-//							world.vselected = false;
-//							((Hero)t).blinkpos = lastpoint;
-//							if(shiftdown) {
-//								((Hero)t).addAbility((((Hero)t).getAbilityNumber(Action.BLINK)));
-//							} else {
-//								((Hero)t).useAbility(((Hero)t).getAbilityNumber(Action.BLINK));
-//							}
-//						}
-//					}
-//				}
-//				if(world.xselected == true) {
-//					for(Thing t: world.selected) {
-//						if(t instanceof Hero && ((Hero)t).getName().equals("Slender")) {
-//							world.xselected = false;
-//							if(shiftdown) {
-//								((Hero)t).addAbility(((Hero)t).getAbilityNumber(Action.BLADESDANCE), currentmousepos.x, currentmousepos.y);
-//							} else {
-//								((Hero)t).useAbility(((Hero)t).getAbilityNumber(Action.BLADESDANCE), currentmousepos.x, currentmousepos.y);
-//							}
-//						}	
-//					}
-//				}
 				if(world.isbuilding==true&&canBuild(world.thisplayer.resources(),world.buildthis.resources())){
 					boolean overlaps=false;
 					Building f;

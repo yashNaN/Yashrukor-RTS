@@ -18,7 +18,7 @@ public class Knight extends Unit {
 	public static int HEIGHT=60;
 	public Knight(int race, int direction, int x, int y) {
 		super(race, KNIGHT, direction, x, y, icon);
-		setSize(60,60);
+		setSize(WIDTH,HEIGHT);
 		type = KNIGHT;
 		setHealth(500);
 		movespeed = 7;

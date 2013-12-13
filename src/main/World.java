@@ -820,15 +820,6 @@ public class World extends JPanel {
 		}
 		return false;
 	}
-//	public class ButtonListener implements ActionListener {
-//		@Override
-//		public void actionPerformed(ActionEvent arg0) {
-//			System.out.println(":"+arg0.getActionCommand());
-//			if (arg0.getActionCommand()=="Farm") {
-//				System.out.println("farm");
-//			}
-//		}
-//	}
 	public Thing whatIsHere(Point p){
 		for(Thing t:getAllThings()){
 			if(t.collides(p)){

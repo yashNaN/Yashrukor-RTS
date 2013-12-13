@@ -23,7 +23,7 @@ public class Hero extends Unit {
 	int timer;
 	int timerBlink;
 	int timerBladesDance; 
-	int timerWarCry; 
+	int timerWarCry;
 	Frame heroframe = getWorld().getFrame();
 	boolean warcrycheck;
 	int mana, maxmana;
@@ -85,16 +85,6 @@ public class Hero extends Unit {
 		name=heroname;
 		int race=updateStatsAndReturnRace(heroname);
 		updateSuperInfo(race);
-		setSize(60,60);
-		if(heroname.equals("Slender") || heroname.equals("Tarba"))
-		{
-			mana = 70;
-			maxmana = 70;
-		}
-		else if(heroname.equals("Finneo") || heroname.equals("Prototype") || heroname.equals("Beholder"))
-		{
-			timer = 0;
-		}
 		if(heroname.equals("Slender"))
 		{
 			commands.add(Action.BLINK);
@@ -335,13 +325,18 @@ public class Hero extends Unit {
 			if(name.equals("Beholder")){
 				damage= 30;
 				movespeed=3;
-				setHealth(1000);	
+				setHealth(1000);
+				timer = 0;	
+				setSize(70,70);
 				return 0;
 			}
 			else if(name.equals("Slender")){
 				damage=25;
 				movespeed=8;
 				setHealth(500);
+				mana = 70;
+				maxmana = 70;
+				setSize(55,55);
 				return 0;
 			}
 			else if(name.equals("Finneo")){
@@ -349,6 +344,8 @@ public class Hero extends Unit {
 				//movespeed=3;
 				movespeed=7;
 				setHealth(450);
+				timer = 0;
+				setSize(60,60);
 				return 1;
 			}
 			else if(name.equals("Prototype")){	
@@ -356,12 +353,17 @@ public class Hero extends Unit {
 				//damage = 5;
 				movespeed=8;
 				setHealth(700);
+				timer = 0;
+				setSize(65,65);
 				return 1;
 			}
 			else if(name.equals("Tarba")){
 				damage=15;
 				movespeed=15;
 				setHealth(400);
+				mana = 70;
+				maxmana = 70;
+				setSize(50,50);
 				return 1;
 			}
 			return -1;

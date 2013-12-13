@@ -21,7 +21,7 @@ public class Worker extends Unit {
 	public Worker(int race, int direction,int x, int y){
 		//super(health, healthregen, race, 1, x, y, direction);
 		super(race,WORKER,direction, x, y,icon);
-		setSize(23,29);
+		setSize(WIDTH,HEIGHT);
 		type = WORKER;
 		setHealth(250);
 		movespeed = 4;

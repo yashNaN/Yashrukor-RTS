@@ -203,7 +203,6 @@ public class GameMenu extends JPanel{
 			}
 			else if (arg0.getActionCommand() == "Tutorial") {
 				frame.createNewWorld(selected,diff, true);
-//				System.out.println(frame.isTutorial());
 				frame.exitMenu();
 			}
 //			else if (arg0.getActionCommand() == "SaveGame") {

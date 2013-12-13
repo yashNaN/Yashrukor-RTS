@@ -18,7 +18,7 @@ public class Swordsman extends Unit {
 	public static int HEIGHT=36;
 	public Swordsman(int race, int direction, int x, int y) {
 		super(race, SWORDSMAN, direction, x, y, icon);
-		setSize(35,36);
+		setSize(WIDTH,HEIGHT);
 		type = SWORDSMAN;
 		setHealth(400);
 		movespeed = 3;

@@ -20,7 +20,7 @@ public class Archer extends Unit {
 	public Archer(int race, int direction, int x, int y) {
 		super(race, ARCHER, direction, x, y,icon);
 		VISIONDISTANCE = 900;
-		setSize(42,37);
+		setSize(WIDTH,HEIGHT);
 		type = ARCHER;
 		setHealth(250);
 		movespeed = 3;
