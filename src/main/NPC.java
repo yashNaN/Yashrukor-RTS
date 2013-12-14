@@ -204,16 +204,15 @@ public class NPC extends Player{
 				}
 			}
 			if(!found) {
-				if(b.costWood()>this.wood()) {
+				if(b.getCost().getWood()>this.getResources().getWood()) {
 					willbuild.add(new LumberMill(this.race(), 0, 0));
-				} else if(b.costStone()>this.stone()) {
+				} else if(b.getCost().getStone()>this.getResources().getStone()) {
 					willbuild.add(new Quarry(this.race(), 0, 0));
-				} else if(b.costGold()>this.gold()) {
+				} else if(b.getCost().getGold()>this.getResources().getGold()) {
 					willbuild.add(new TownHall(this.race(), 0, 0));
 				} else {
 					willbuild.add(b);	
 				}
-//				myworld.debug.add("building "+b);
 				return b;
 			}
 		}

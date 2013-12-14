@@ -19,8 +19,11 @@ import units.Unit;
 public abstract class Building extends Thing{
 	public static final int HPBARHEIGHT = 8;
 	public static final int HPBARDIST = 8;
-	private int type,buildtime,race,wood,stone,gold,spawntype;//,spawntime;
+	private int type,buildtime,race;
+	private Resources cost;
+	private Resources refund;
 	Unit returnedspawn=null;
+	public static final int UNDERCONSTRUCTIONVISIONDISTANCE = 150;
 	public static final int FARM=1;
 	public static final int LUMBERMILL=2;
 	public static final int QUARRY=3;
@@ -54,7 +57,7 @@ public abstract class Building extends Thing{
 	int count=0;
 	int ticcount=40;
 	public abstract Building initialize(int race, int x, int y);
-	public Building(int type,int health,int buildtime,int race,int wood,int stone,int gold,int spawntype,int x,int y){
+	public Building(int type,int health,int buildtime,int race,int woodcost,int stonecost,int goldcost,int spawntype,int x,int y){
 		super();
 		possibleUnits = new ArrayList<UnitButton>();
 		queue = new ArrayList<Unit>();
@@ -71,11 +74,8 @@ public abstract class Building extends Thing{
 		this.maxhealth=health;
 		this.buildtime=buildtime;//in seconds
 		this.race=race;//0=orc,1=human
-		this.wood=wood;
-		this.stone=gold;
-		this.gold=gold;
-		this.spawntype=spawntype;//type of unit it spawns
-//		getSpawnTimes();
+		this.cost = new Resources(woodcost, goldcost, stonecost, 0);
+		this.refund = new Resources(woodcost, goldcost, stonecost, 0);
 	}
 	/**
 	 * adds unit type poss to list of possible units to be produced, ex: Unit.ARCHER, Unit.HEALER
@@ -90,32 +90,46 @@ public abstract class Building extends Thing{
 	 */
 	public boolean construct() {
 		construct+=constructspeed;
+		refund.addGold(-1);
+		refund.addWood(-1);
+		refund.addStone(-1);
 		repair(constructspeed);
 		if(construct>=constructtarget) {
 			constructed = true;
+			refund = new Resources(0, 0, 0, 0);
 			return true;
 		}
 		return false;
 	}
+	/**
+	 * instantly constructs the building fully, and sets it to full health
+	 */
 	public void setFullyConstructed() {
 		construct = constructtarget;
 		constructed = true;
+		refund = new Resources(0, 0, 0, 0);
 		setHealth(this.getMaxHealth());
 	}
+	/**
+	 * @return true if Thing other is in VISIONDISTANCE of this, false if otherwise
+	 */
 	@Override
 	public boolean canSee(Thing other) {
 		if(constructed) {
 			return distanceFrom(other)<VISIONDISTANCE;
 		} else {
-			return distanceFrom(other)<150;
+			return distanceFrom(other)<UNDERCONSTRUCTIONVISIONDISTANCE;
 		}
 	}
+	/**
+	 * @return true if Point other is in VISIONDISTANCE of this, false if otherwise
+	 */
 	@Override
 	public boolean canSee(Point other) {
 		if(constructed) {
 			return distanceFrom(other)<VISIONDISTANCE;
 		} else {
-			return distanceFrom(other)<150;
+			return distanceFrom(other)<UNDERCONSTRUCTIONVISIONDISTANCE;
 		}
 	}
 	public void draw(Graphics2D g, int x, int y, int w, int h) {
@@ -138,17 +152,6 @@ public abstract class Building extends Thing{
 		g.setColor(getPlayer().getColor());
 		g.fillRect(x,y,w,h);
 	}
-//	public void getSpawnTimes(){
-//		if(spawntype==1){
-//			spawntime=5;
-//		}
-//		else if(spawntype==2||spawntype==3){
-//			spawntime=10;
-//		}
-//		else if(spawntype==4||spawntype==5){
-//			spawntime=20;
-//		}
-//	}
 	public boolean repair(int howmuch) {
 		this.heal(howmuch);
 		if(health()==maxHealth()){
@@ -156,38 +159,25 @@ public abstract class Building extends Thing{
 		}
 		return false;
 	}
-	public int[] resources(){
-		int[] ret={costGold(),costWood(),costStone()};
-		return ret;
+	public Resources getCost() {
+		return cost;
 	}
-	public int[] sell(){
-		int[] ret={(costGold())/2,(costWood())/2,(costStone())/2};
-		return ret;
+	public Resources sell() {
+		if(refund.getGold()<0) {
+			refund.addGold(-refund.getGold());
+		}
+		if(refund.getWood()<0) {
+			refund.addWood(-refund.getWood());
+		}
+		if(refund.getStone()<0) {
+			refund.addStone(-refund.getStone());
+		}
+		return refund;
 	}
-//	public Unit createandcollectUnit(){
-//		return null;
-//	}
-//	public void unitTimeStart(){
-//	}
-//	public boolean hasUnits(){
-//		return false;
-//	}
 	public int getType(){
 		return type;
 	}
 	public int collectResources(){
-		return 0;
-	}
-//	public int getUnitCost(){
-//		return 0;
-//	}
-	public int getUnitGoldCost() {
-		return 0;
-	}
-	public int getUnitWoodCost() {
-		return 0;
-	}
-	public int getUnitFoodCost() {
 		return 0;
 	}
 	public int getMaxHealth(){
@@ -207,15 +197,6 @@ public abstract class Building extends Thing{
 			return "HUMAN";
 		}
 		return null;
-	}
-	public int costWood(){
-		return wood;
-	}
-	public int costGold(){
-		return gold;
-	}
-	public int costStone(){
-		return stone;
 	}
 	public Unit makeUnit(int type) {
 		if(constructed) {
@@ -301,7 +282,7 @@ public abstract class Building extends Thing{
 	public void tryToStartUnit(int type) {
 		if(type!=-1) {
 			Unit newu = makeUnit(type);
-			if(newu!=null && getPlayer().gold()>=newu.getGoldcost() && getPlayer().food()>=newu.getFoodcost() && getPlayer().wood()>=newu.getWoodcost()){
+			if(newu!=null && getPlayer().getResources().getGold()>=newu.getGoldcost() && getPlayer().getResources().getFood()>=newu.getFoodcost() && getPlayer().getResources().getWood()>=newu.getWoodcost()){
 					getPlayer().addGold(-newu.getGoldcost());
 					getPlayer().addFood(-newu.getFoodcost());
 					getPlayer().addWood(-newu.getWoodcost());

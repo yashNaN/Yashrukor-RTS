@@ -546,7 +546,11 @@ public class World extends JPanel {
 				if(k.is("del")){
 					for(Thing t:selected){
 						if(t instanceof Building){
-							refund(((Building)t).sell(),t.getPlayer());
+							Building b = (Building)t;
+							if(!b.constructed) {
+								b.getPlayer().refund(b.sell());
+//								refund(((Building)t).sell(),t.getPlayer());
+							}
 						}
 						t.damage(t.maxHealth());
 					}
@@ -660,11 +664,15 @@ public class World extends JPanel {
 			thisplayer.chooseidleworker();
 		}
 	}
-	public void removeCosts(Building b, Player p){
-		p.addWood(-b.costWood());
-		p.addGold(-b.costGold());
-		p.addStone(-b.costStone());
-	}
+//	public void removeCosts(Building b, Player p){
+//		p.addWood(-b.costWood());
+//		p.addGold(-b.costGold());
+//		p.addStone(-b.costStone());
+//	}
+	/**
+	 * 
+	 * @return true if at least one worker is currently selected
+	 */
 	public boolean workerselected() {
 		for(Thing t : selected) {
 			if(t instanceof Worker) 

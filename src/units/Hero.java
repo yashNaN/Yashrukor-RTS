@@ -119,7 +119,7 @@ public class Hero extends Unit {
 	@Override
 	public void tic(){
 		super.tic();
-		System.out.println(getWorld().getFrame().isTutorial());
+//		System.out.println(getWorld().getFrame().isTutorial());
 		if(getName().equals("Slender")){
 			timerBlink--;
 			timerBladesDance--;

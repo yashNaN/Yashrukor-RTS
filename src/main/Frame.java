@@ -250,7 +250,7 @@ public class Frame extends JFrame implements ActionListener{
 						}
 					}
 				}
-				if(world.isbuilding==true&&canBuild(world.thisplayer.resources(),world.buildthis.resources())){
+				if(world.isbuilding==true&&world.thisplayer.hasEnoughResources(world.buildthis.getCost())) {
 					boolean overlaps=false;
 					Building f;
 					f = world.buildthis.initialize(world.thisplayer.race(),lastpoint.x-Building.WIDTH/2,lastpoint.y-Building.HEIGHT/2);
@@ -273,7 +273,7 @@ public class Frame extends JFrame implements ActionListener{
 						world.isbuilding=false;
 						world.buildthis = null;
 						f.setPlayer(world.thisplayer);
-						world.removeCosts(f,f.getPlayer());
+						f.getPlayer().getResources().subtract(f.getCost());
 						world.getBuildings().add(f);
 						Worker w = world.getaselectedworker();
 						if(w!=null) {

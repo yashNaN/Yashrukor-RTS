@@ -24,6 +24,7 @@ public class Farm extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new Farm(race, x, y);
 	}
+	@Override
 	public int collectResources(){
 		int ret=food;
 		food=0;

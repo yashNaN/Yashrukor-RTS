@@ -24,6 +24,7 @@ public class LumberMill extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new LumberMill(race, x, y);
 	}
+	@Override
 	public int collectResources(){
 		int ret=wood;
 		wood=0;
