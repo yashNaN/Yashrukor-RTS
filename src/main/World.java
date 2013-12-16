@@ -26,7 +26,7 @@ public class World extends JPanel {
 	/**
 	 * disables of enables Fog of War
 	 */
-	public static final boolean FOW = true;
+	public static final boolean FOW = false;
 	/**
 	 * left most boundary of world
 	 */

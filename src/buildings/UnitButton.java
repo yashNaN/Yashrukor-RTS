@@ -1,7 +1,11 @@
 package buildings;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+
+import units.Unit;
 
 public class UnitButton {
 	/**
@@ -13,6 +17,7 @@ public class UnitButton {
 	 * the type of unit, ex: Unit.HEALER or Unit.WORKER
 	 */
 	public final int type;
+	public Image image;
 	/**
 	 * stored on screen coordinates of the last place this UnitButton was drawn
 	 */
@@ -24,6 +29,7 @@ public class UnitButton {
 	 */
 	public UnitButton(int number, int type) {
 		this.type = type;
+		image = Toolkit.getDefaultToolkit().createImage("resources//images//"+Unit.convertTypeToString(type)+".gif");
 		bounds = new Rectangle(number*-60, 0, 50, 50);
 	}
 	/**

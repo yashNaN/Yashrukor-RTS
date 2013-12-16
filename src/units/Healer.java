@@ -9,12 +9,14 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 public class Healer extends Unit {
-	private Image image;
-	static ImageIcon icon=new ImageIcon("resources//images//Healer.gif");
+//	private Image image;
+//	static ImageIcon icon=new ImageIcon("resources//images//Healer.gif");
 	public static int WIDTH=55;
 	public static int HEIGHT=55;
 	public Healer(int race, int direction, int x, int y) {
-		super(race, HEALER, direction, x, y,icon);
+		super(race, HEALER, direction, x, y);
+		Image i = Toolkit.getDefaultToolkit().createImage("resources//images//Healer.gif");
+		this.setImage(i);
 		setSize(WIDTH,HEIGHT);
 		type = HEALER;
 		setHealth(350);
@@ -25,7 +27,7 @@ public class Healer extends Unit {
 		setGoldcost(15);
 		setWoodcost(15);
 		setFoodcost(15);
-		image=icon.getImage();
+//		image=icon.getImage();
 	}
 	@Override
 	public void draw(Graphics2D g, int x, int y, int w, int h) {

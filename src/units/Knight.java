@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 
@@ -17,7 +18,9 @@ public class Knight extends Unit {
 	public static int WIDTH=60;
 	public static int HEIGHT=60;
 	public Knight(int race, int direction, int x, int y) {
-		super(race, KNIGHT, direction, x, y, icon);
+		super(race, KNIGHT, direction, x, y);
+		Image i = Toolkit.getDefaultToolkit().createImage("resources//images//Knight.gif");
+		this.setImage(i);
 		setSize(WIDTH,HEIGHT);
 		type = KNIGHT;
 		setHealth(500);
@@ -28,7 +31,7 @@ public class Knight extends Unit {
 		setGoldcost(20);
 		setWoodcost(20);
 		setFoodcost(20);
-		image=icon.getImage();
+//		image=icon.getImage();
 	}
 	@Override
 	public void draw(Graphics2D g, int x, int y, int w, int h) {

@@ -28,8 +28,6 @@ public class TownHall extends Building{
 		super(Building.TOWNHALL, 4500, 300, race, 100, 100, 300, Unit.WORKER, x, y);
 		image=new ImageIcon("resources//images//TownHall.gif").getImage();
 		this.addPossibleUnit(Unit.WORKER);
-//		this.addPossibleUnit(Unit.SWORDSMAN);
-//		this.addPossibleUnit(Unit.ARCHER);
 	}
 	public Building initialize(int race, int x, int y) {
 		return new TownHall(race, x, y);

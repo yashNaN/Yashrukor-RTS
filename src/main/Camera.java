@@ -38,6 +38,7 @@ public class Camera{
 	 * image for light fog of war
 	 */
 	private final Image LFOG;
+	public static final Color BACKGROUND = new Color(182,207,182);
 	public Camera(World sworld, int worldx, int worldy, int worldw, int worldh, int smovespeed) {
 		worldcoordinates = new Rectangle(worldx, worldy, worldw, worldh);
 		draw = new Rectangle();
@@ -162,7 +163,7 @@ public class Camera{
 		return new Point(newdx+newfocus.x, newdy+newfocus.y);
 	}
 	public void paint(Graphics2D g){
-		g.setColor(new Color(182,207,182));
+		g.setColor(BACKGROUND);
 		g.fillRect(draw.x, draw.y, draw.width, draw.height);
 		g.setColor(Color.black);
 		g.drawRect(draw.x, draw.y, draw.width, draw.height);

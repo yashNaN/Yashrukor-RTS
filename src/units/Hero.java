@@ -3,7 +3,9 @@ package units;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -72,7 +74,9 @@ public class Hero extends Unit {
 	ImageIcon icon=new ImageIcon("resources//images//Blank.png");
 	//ArrayList<Move>moves=new ArrayList<Move>();
 	public Hero(String heroname, int direction, int x, int y){
-		super(2,0, direction, x, y,new ImageIcon("resources//images//Heroes/"+heroname+".gif"));
+		super(2,0, direction, x, y);
+		Image i = Toolkit.getDefaultToolkit().createImage("resources//images//Heroes/"+heroname+".gif");
+		this.setImage(i);
 		VISIONDISTANCE = 700;
 		blinkrunning = false;
 		timerBlink = 0;

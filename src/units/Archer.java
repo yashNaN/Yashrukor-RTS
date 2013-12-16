@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 
@@ -13,12 +14,14 @@ import main.Thing;
 import buildings.Building;
 
 public class Archer extends Unit {
-	private Image image;
-	static ImageIcon icon=new ImageIcon("resources//images//Archer.gif");
+//	private Image image;
+//	static ImageIcon icon=new ImageIcon("resources//images//Archer.gif");
 	public static int WIDTH=42;
 	public static int HEIGHT=37;
 	public Archer(int race, int direction, int x, int y) {
-		super(race, ARCHER, direction, x, y,icon);
+		super(race, ARCHER, direction, x, y);
+		Image i = Toolkit.getDefaultToolkit().createImage("resources//images//Archer.gif");
+		this.setImage(i);
 		VISIONDISTANCE = 900;
 		setSize(WIDTH,HEIGHT);
 		type = ARCHER;
@@ -30,7 +33,6 @@ public class Archer extends Unit {
 		setGoldcost(5);
 		setWoodcost(15);
 		setFoodcost(10);
-		image=icon.getImage();
 	}
 	@Override
 	public void draw(Graphics2D g, int x, int y, int w, int h) {

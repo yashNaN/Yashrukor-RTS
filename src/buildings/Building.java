@@ -202,7 +202,7 @@ public abstract class Building extends Thing{
 		if(constructed) {
 			Unit newu = UnitFactory.createUnit(type);
 			queue.add(newu);
-			this.myworld.addDebug("CREATED UNIT:"+type);
+			Building.myworld.addDebug("CREATED UNIT:"+type);
 			return newu;
 		}
 		return null;
@@ -248,11 +248,17 @@ public abstract class Building extends Thing{
 		g.setFont(new Font("Arial", Font.PLAIN, 40));
 		for(int a=0; a<possibleUnits.size(); a++) {
 			UnitButton ub = possibleUnits.get(a);
-			g.setColor(Color.red);
+			g.setColor(Camera.BACKGROUND);
 			g.fillRect(x+w-260+ub.bounds.x, y+h-60+ub.bounds.y, ub.bounds.width, ub.bounds.height);
 			ub.drawn(x+w-260+ub.bounds.x, y+h-60+ub.bounds.y);
 			g.setColor(Color.black);
 			g.drawString(ub.type+"", x+w-250+ub.bounds.x, y+h-20+ub.bounds.y);
+			g.drawImage(ub.image, x+w-260+ub.bounds.x, y+h-60+ub.bounds.y, ub.bounds.width, ub.bounds.height, null);
+		}
+		for(int a=0; a<queue.size(); a++) {
+			g.setColor(Camera.BACKGROUND);
+			g.fillRect(x+w-260-a*40, y+20, 30, 30);
+			g.drawImage(queue.get(a).getImage(), x+w-260-a*40, y+20, 30, 30, null);
 		}
 		g.setColor(Color.white);
 		g.drawString(""+queue.size(), x+200, y+150);
