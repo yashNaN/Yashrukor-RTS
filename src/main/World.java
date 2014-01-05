@@ -38,7 +38,6 @@ public class World extends JPanel {
 	/**
 	 * right most boundary of world
 	 */
-	public int asfadsf;
 	public final int MAXX = 2000;
 	/**
 	 * bottom most boundary of world
