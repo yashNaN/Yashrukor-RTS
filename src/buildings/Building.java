@@ -37,6 +37,7 @@ public abstract class Building extends Thing{
 
 	public int construct;
 	public int constructtarget;
+	public int tesmpadsfkjh;
 	public boolean constructed = false;
 	public int constructspeed;
 	
