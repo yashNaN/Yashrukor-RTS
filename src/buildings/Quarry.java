@@ -24,6 +24,7 @@ public class Quarry extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new Quarry(race, x, y);
 	}
+	@Override
 	public int collectResources(){
 		int ret=stone;
 		stone=0;

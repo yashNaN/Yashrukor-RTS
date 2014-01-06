@@ -19,12 +19,11 @@ import units.Worker;
 
 public class Player {
 	public static final int STARTINGGOLD = 100;
+	public static final int STARTINGWOOD = 100;
+	public static final int STARTINGSTONE = 100;
 	public static final int STARTINGFOOD = 10;
 	private String name;
-	private int gold;
-	private int wood;
-	private int food;
-	private int stone;
+	private Resources resources;
 	private final int race;
 	private Color color;
 	protected World myworld;
@@ -47,10 +46,7 @@ public class Player {
 		myworld = sworld;
 		race = srace;
 		color=c;
-		gold = STARTINGGOLD;
-		wood = 100;
-		food = STARTINGFOOD;
-		stone = 100;
+		resources = new Resources(STARTINGWOOD, STARTINGGOLD, STARTINGSTONE, STARTINGFOOD);
 		ImageIcon ii = new ImageIcon("resources//images//idleworkerbutton.png");
 		IDLE = ii.getImage();
 		ii = new ImageIcon("resources//images//Wood.png");
@@ -75,6 +71,12 @@ public class Player {
 		}
 		return false;
 	}
+	public void refund(Resources ref) {
+		this.getResources().add(ref);
+	}
+	public boolean hasEnoughResources(Resources cost) {
+		return (this.getResources().compareTo(cost)>=0);
+	}
 	public boolean chooseidleworker() {
 		Worker w = myworld.getIdleWorker(this);
 		if(w!=null) {
@@ -96,13 +98,13 @@ public class Player {
 		g.setColor(Color.white);
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
 		g.drawImage(GOLD, 10, 10, 20, 20, null);
-		g.drawString(gold+"", 31, 25);
+		g.drawString(resources.getGold()+"", 31, 25);
 		g.drawImage(WOOD, 80, 10, 20, 20, null);
-		g.drawString(wood+"", 101, 25);
+		g.drawString(resources.getWood()+"", 101, 25);
 		g.drawImage(STONE, 150, 10, 20, 20, null);
-		g.drawString(stone+"", 171, 25);
+		g.drawString(resources.getStone()+"", 171, 25);
 		g.drawImage(FOOD, 220, 10, 20, 20, null);
-		g.drawString(food+"", 241, 25);
+		g.drawString(resources.getFood()+"", 241, 25);
 		
 		if(myworld.selected.size()>0) {
 			Thing t = myworld.selected.get(0);
@@ -213,31 +215,18 @@ public class Player {
 		}
 	}
 	public void addGold(int g){
-		gold+=g;
+		resources.addGold(g);
 	}
 	public void addFood(int g){
-		food+=g;
+		resources.addFood(g);
 	}
 	public void addWood(int g){
-		wood+=g;
+		resources.addWood(g);
 	}
 	public void addStone(int g){
-		stone+=g;
+		resources.addStone(g);
 	}
-	public int gold(){
-		return gold;
-	}
-	public int wood(){
-		return wood;
-	}
-	public int stone(){
-		return stone;
-	}
-	public int food(){
-		return food;
-	}
-	public int[] resources(){
-		int[] ret={gold,wood,stone};
-		return ret;
+	public Resources getResources() {
+		return resources;
 	}
 }

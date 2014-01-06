@@ -26,7 +26,7 @@ public class World extends JPanel {
 	/**
 	 * disables of enables Fog of War
 	 */
-	public static final boolean FOW = true;
+	public static final boolean FOW = false;
 	/**
 	 * left most boundary of world
 	 */
@@ -410,7 +410,7 @@ public class World extends JPanel {
 			removeDestroyedThings();
 			checkDeadPlayers();
 		}
-		removestring++;
+		removestring+=debug.size();
 		if(debug.size()>=20)
 			removestring+=DEBUGSTRINGREMOVALSPEED/10;
 		if(removestring>DEBUGSTRINGREMOVALSPEED) {
@@ -494,19 +494,7 @@ public class World extends JPanel {
 					moveAllCameras(100, 0);
 				}
 				
-				//OPTION 1: BUILDINGS ACROSS TOP ROW OF KEYBOARD, B TO BUILD UNITS
-				//OPTION 2: BUILDINGS ASSIGNED TO 1ST LETTER OF THEIR NAME, SPACE FOR UNITS
-				else if(k.is("space")){
-					if(selected.size()>0&&addedunit==false){
-						for(Thing t:selected){
-							if(t instanceof Building) {
-								Building b = (Building)t;
-								b.tryToStartUnit(b.getPossibleUnitType());
-								
-							}
-						}
-					}
-				}
+				
 				
 				if(workerselected()){
 					if(k.is("a")){
@@ -558,7 +546,11 @@ public class World extends JPanel {
 				if(k.is("del")){
 					for(Thing t:selected){
 						if(t instanceof Building){
-							refund(((Building)t).sell(),t.getPlayer());
+							Building b = (Building)t;
+							if(!b.constructed) {
+								b.getPlayer().refund(b.sell());
+//								refund(((Building)t).sell(),t.getPlayer());
+							}
 						}
 						t.damage(t.maxHealth());
 					}
@@ -623,6 +615,16 @@ public class World extends JPanel {
 		for(Key k : keyboard) {
 			if(k.getKeyCode()==id) {
 				k.release();
+				if(k.is("space")) {
+					if(selected.size()>0&&addedunit==false){
+						for(Thing t:selected){
+							if(t instanceof Building) {
+								Building b = (Building)t;
+								b.tryToStartUnit(b.getPossibleUnitType());
+							}
+						}
+					}
+				}
 				if(k.is("a")) {
 					for(Thing t : selected){
 						Point tar = null;
@@ -662,11 +664,15 @@ public class World extends JPanel {
 			thisplayer.chooseidleworker();
 		}
 	}
-	public void removeCosts(Building b, Player p){
-		p.addWood(-b.costWood());
-		p.addGold(-b.costGold());
-		p.addStone(-b.costStone());
-	}
+//	public void removeCosts(Building b, Player p){
+//		p.addWood(-b.costWood());
+//		p.addGold(-b.costGold());
+//		p.addStone(-b.costStone());
+//	}
+	/**
+	 * 
+	 * @return true if at least one worker is currently selected
+	 */
 	public boolean workerselected() {
 		for(Thing t : selected) {
 			if(t instanceof Worker) 
@@ -822,15 +828,6 @@ public class World extends JPanel {
 		}
 		return false;
 	}
-//	public class ButtonListener implements ActionListener {
-//		@Override
-//		public void actionPerformed(ActionEvent arg0) {
-//			System.out.println(":"+arg0.getActionCommand());
-//			if (arg0.getActionCommand()=="Farm") {
-//				System.out.println("farm");
-//			}
-//		}
-//	}
 	public Thing whatIsHere(Point p){
 		for(Thing t:getAllThings()){
 			if(t.collides(p)){

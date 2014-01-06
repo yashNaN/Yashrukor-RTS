@@ -20,18 +20,20 @@ public class Worker extends Unit {
 	public static int HEIGHT=29;
 	public Worker(int race, int direction,int x, int y){
 		//super(health, healthregen, race, 1, x, y, direction);
-		super(race,WORKER,direction, x, y,icon);
-		setSize(23,29);
+		super(race,WORKER,direction, x, y);
+		Image i = Toolkit.getDefaultToolkit().createImage("resources//images//Worker.gif");
+		this.setImage(i);
+		setSize(WIDTH,HEIGHT);
 		type = WORKER;
 		setHealth(250);
 		movespeed = 4;
 		damage = 2;
 		range = 5;
 		attackspeed = 1;
-		goldcost = 0;
-		foodcost = 10;
-		woodcost = 10;
-		image=icon.getImage();
+		setGoldcost(0);
+		setFoodcost(10);
+		setWoodcost(10);
+//		image=icon.getImage();
 		commands.add(Action.BUILD);
 		commands.add(Action.REPAIR);
 	}

@@ -2,6 +2,7 @@ package units;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -48,9 +49,9 @@ public abstract class Unit extends Thing{
 	 * how fast the Unit attacks, currently has no effect(all units attack same speed regardless of attackspeed)
 	 */
 	protected int attackspeed;
-	protected int woodcost;
-	protected int goldcost;
-	protected int foodcost;
+	private int woodcost;
+	private int goldcost;
+	private int foodcost;
 	private boolean buffed=false;
 	private int bufftic=0;
 	int buffduration=Integer.MAX_VALUE;
@@ -79,15 +80,16 @@ public abstract class Unit extends Thing{
 	int moveX;
 	int moveY;
 	public Thing ttt=null;
-	private ImageIcon icon;
+	protected Image image;
+//	private ImageIcon icon;
 	private boolean stopped=false;
 	/**
-	 * busy is used only for Workers. 
+	 * busy is used only for Workers.
 	 */
 	public boolean busy = false;
 	public ArrayList<Action> actionqueue = new ArrayList<Action>();
 	abstract public int getDamage();
-	public Unit(int race,int type, int direction, int x, int y, ImageIcon icon){
+	public Unit(int race,int type, int direction, int x, int y){
 		super();
 		attackmode = false;
 		VISIONDISTANCE = 500;
@@ -127,11 +129,7 @@ public abstract class Unit extends Thing{
 		//this.health=health;
 		this.race=race;//0=orc,1=human
 		this.type=type;//0=HERO,1=worker,2=archer,3=knight,4=swordsman,=5=healer
-		//this.x=x;
-		//this.y=y;
-		//this.healthregen = healthregen;
-		//this.direction = direction;
-		this.icon=icon;
+		this.image = image;
 	}
 	public void tic() {
 //		if(Hero.getTimerWarcry()<= 56)
@@ -446,20 +444,23 @@ public abstract class Unit extends Thing{
 	public int getRange(){
 		return range;
 	}
-	public void setIcon(ImageIcon i){
-		this.icon=i;
+	public void setImage(Image i){
+		this.image=i;
+	}
+	public Image getImage() {
+		return image;
 	}
 	public void setRace(int r){
 		race=r;
 	}
 	public int getHeight(){
-		return icon.getIconHeight();
+		return image.getHeight(null);
 	}
 	public int getWidth(){
-		return icon.getIconWidth();
+		return image.getWidth(null);
 	}
 	public void draw(Graphics2D g, int x, int y, int w, int h) {
-		g.drawImage(icon.getImage(),x,y,w,h,null);
+		g.drawImage(image,x,y,w,h,null);
 		g.setColor(getPlayer().getColor());
 		g.drawRect(x, y-HPBARHEIGHT-HPBARDIST, w, HPBARHEIGHT);
 		double ratio = (double)this.health()/this.getMaxHealth();
@@ -549,5 +550,43 @@ public abstract class Unit extends Thing{
 //	public boolean feelsLikeAttacking(Thing other) {
 //		return (this.distanceFrom(other)<=AGRODISTANCE);
 //	}
-	
+	public int getWoodcost() {
+		return woodcost;
+	}
+	public void setWoodcost(int woodcost) {
+		this.woodcost = woodcost;
+	}
+	public int getGoldcost() {
+		return goldcost;
+	}
+	public void setGoldcost(int goldcost) {
+		this.goldcost = goldcost;
+	}
+	public int getFoodcost() {
+		return foodcost;
+	}
+	public void setFoodcost(int foodcost) {
+		this.foodcost = foodcost;
+	}
+	public static String convertTypeToString(int type) {
+		if(type==Unit.ARCHER) {
+			return "Archer";
+		}
+		if(type==Unit.HEALER) {
+			return "Healer";
+		}
+		if(type==Unit.KNIGHT) {
+			return "Knight";
+		}
+		if(type==Unit.SWORDSMAN) {
+			return "Swordsman";
+		}
+		if(type==Unit.WORKER) {
+			return "Worker";
+		}
+		if(type==Unit.HERO) {
+			return "Hero";
+		}
+		return "";
+	}
 }

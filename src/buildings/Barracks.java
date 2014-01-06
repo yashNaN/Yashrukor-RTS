@@ -20,17 +20,17 @@ public class Barracks extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new Barracks(race, x, y);
 	}
-	@Override
-	public void tic() {
-		if(timing==true){
-			count++;
-		}
-		if(count>=ticcount){
-			Unit u = createandcollectUnit();
-			if(u!=null)
-				myworld.getUnits().add(u);
-		}
-	}
+//	@Override
+//	public void tic() {
+//		if(timing==true){
+//			count++;
+//		}
+//		if(count>=ticcount){
+//			Unit u = createandcollectUnit();
+//			if(u!=null)
+//				myworld.getUnits().add(u);
+//		}
+//	}
 	public int getUnitGoldCost() {
 		return 20;
 	}
@@ -40,33 +40,33 @@ public class Barracks extends Building{
 	public int getUnitFoodCost() {
 		return 20;
 	}
-	public Unit createandcollectUnit(){
-		boolean found = false;
-		int tempcount = 0;
-		Swordsman a = null;
-		while(!found && tempcount++<20) {
-			double ran = Math.random();
-			if(ran<.25) {
-				a=new Swordsman(getPlayer().race(),0,x()-Swordsman.WIDTH,(int) (y()-Swordsman.HEIGHT+Math.random()*(h()+Swordsman.HEIGHT)));
-			} else if(ran<.5) {
-				a=new Swordsman(getPlayer().race(),0,x()+w()+Swordsman.WIDTH,(int) (y()-Swordsman.HEIGHT+Math.random()*(h()+Swordsman.HEIGHT)));
-			} else if(ran<.75) {
-				a=new Swordsman(getPlayer().race(),0,(int) (x()-Swordsman.WIDTH+Math.random()*(w()+Swordsman.WIDTH)),y()-Swordsman.HEIGHT);
-			} else {
-				a=new Swordsman(getPlayer().race(),0,(int) (x()-Swordsman.WIDTH+Math.random()*(w()+Swordsman.WIDTH)),y()+h()+Swordsman.HEIGHT);
-			}
-			found = !myworld.doesthiscollide(a, 0, 0);
-		}
-		if(!found)
-			return null;
-		if(a==null)
-			return null;
-		a.setPlayer(getPlayer());
-//		smlist.add(a);
-		timing=false;
-		count=0;
-		return a;
-	}
+//	public Unit createandcollectUnit(){
+//		boolean found = false;
+//		int tempcount = 0;
+//		Swordsman a = null;
+//		while(!found && tempcount++<20) {
+//			double ran = Math.random();
+//			if(ran<.25) {
+//				a=new Swordsman(getPlayer().race(),0,x()-Swordsman.WIDTH,(int) (y()-Swordsman.HEIGHT+Math.random()*(h()+Swordsman.HEIGHT)));
+//			} else if(ran<.5) {
+//				a=new Swordsman(getPlayer().race(),0,x()+w()+Swordsman.WIDTH,(int) (y()-Swordsman.HEIGHT+Math.random()*(h()+Swordsman.HEIGHT)));
+//			} else if(ran<.75) {
+//				a=new Swordsman(getPlayer().race(),0,(int) (x()-Swordsman.WIDTH+Math.random()*(w()+Swordsman.WIDTH)),y()-Swordsman.HEIGHT);
+//			} else {
+//				a=new Swordsman(getPlayer().race(),0,(int) (x()-Swordsman.WIDTH+Math.random()*(w()+Swordsman.WIDTH)),y()+h()+Swordsman.HEIGHT);
+//			}
+//			found = !myworld.doesthiscollide(a, 0, 0);
+//		}
+//		if(!found)
+//			return null;
+//		if(a==null)
+//			return null;
+//		a.setPlayer(getPlayer());
+////		smlist.add(a);
+//		timing=false;
+//		count=0;
+//		return a;
+//	}
 //	public Unit collectUnit(){
 //		if(smlist.size()>0){
 //			return smlist.remove(0);

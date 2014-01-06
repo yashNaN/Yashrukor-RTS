@@ -14,26 +14,34 @@ import buildings.Building;
 
 
 public class Camera{
+	/**
+	 * reference to the world this camera is representing
+	 */
 	private World world;
-	private int worldx;
-	private int worldy;
-	private int worldw;
-	private int worldh;
-	private int drawx;
-	private int drawy;
-	private int draww;
-	private int drawh;
+	/**
+	 * boundaries of the place on the world this camera looks at
+	 */
+	private Rectangle worldcoordinates;
+	/**
+	 * coordinates of the place on screen this camera draws
+	 */
+	private Rectangle draw;
 	/**
 	 * in pixels
 	 */
 	public int movespeed;
+	/**
+	 * image for dark fog of war
+	 */
 	private final Image FOG;
+	/**
+	 * image for light fog of war
+	 */
 	private final Image LFOG;
-	public Camera(World sworld, int sx, int sy, int sw, int sh, int smovespeed) {
-		worldx = sx;
-		worldy = sy;
-		worldw = sw;
-		worldh = sh;
+	public static final Color BACKGROUND = new Color(182,207,182);
+	public Camera(World sworld, int worldx, int worldy, int worldw, int worldh, int smovespeed) {
+		worldcoordinates = new Rectangle(worldx, worldy, worldw, worldh);
+		draw = new Rectangle();
 		world = sworld;
 		movespeed = smovespeed;
 		ImageIcon ii = new ImageIcon("resources//images//fog.png");
@@ -42,17 +50,14 @@ public class Camera{
 		LFOG = ii.getImage();
 	}
 	public void setBounds(int x, int y, int w, int h) {
-		drawx = x;
-		drawy = y;
-		draww = w;
-		drawh = h;
+		draw = new Rectangle(x, y, w, h);
 	}
 	/**
 	 * for x and y in the world
 	 */
 	public boolean inCamera(int x,int y){
 		Point p = getOnScreen(x, y);
-		if(p.x>drawx&&p.x<(drawx+draww)&&p.y>drawy&&p.y<drawy+drawh){
+		if(p.x>draw.x&&p.x<(draw.x+draw.width)&&p.y>draw.y&&p.y<draw.y+draw.height){
 			return true;
 		}
 		return false;
@@ -62,7 +67,7 @@ public class Camera{
 	 */
 	public boolean inCamera(Point onscreen){
 		Point p = onscreen;
-		if(p.x>drawx&&p.x<(drawx+draww)&&p.y>drawy&&p.y<drawy+drawh){
+		if(p.x>draw.x&&p.x<(draw.x+draw.width)&&p.y>draw.y&&p.y<draw.y+draw.height){
 			return true;
 		}
 		return false;
@@ -93,76 +98,75 @@ public class Camera{
 		return new Rectangle(x, y, w, h);
 	}
 	public void move(int dx, int dy) {
-		worldx=(int)(worldx+dx*movespeed*.01);
-		if(worldx-world.maincamera.worldw/2<world.MINX){
-			worldx=world.MINX+world.maincamera.worldw/2;
+		worldcoordinates.x=(int)(worldcoordinates.x+dx*movespeed*.01);
+		if(worldcoordinates.x-world.maincamera.worldcoordinates.width/2<world.MINX){
+			worldcoordinates.x=world.MINX+world.maincamera.worldcoordinates.width/2;
 		}
-		else if(worldx+world.maincamera.worldw/2>world.MAXX){
-			worldx=world.MAXX-world.maincamera.worldw/2;
+		else if(worldcoordinates.x+world.maincamera.worldcoordinates.width/2>world.MAXX){
+			worldcoordinates.x=world.MAXX-world.maincamera.worldcoordinates.width/2;
 		}
-		worldy=(int)(worldy+dy*movespeed*.01);
-		if(worldy-world.maincamera.worldh/2<world.MINY){
-			worldy=world.MINY+world.maincamera.worldh/2;
+		worldcoordinates.y=(int)(worldcoordinates.y+dy*movespeed*.01);
+		if(worldcoordinates.y-world.maincamera.worldcoordinates.height/2<world.MINY){
+			worldcoordinates.y=world.MINY+world.maincamera.worldcoordinates.height/2;
 		}
-		else if(worldy+world.maincamera.worldh/2>world.MAXY){
-			worldy=world.MAXY-world.maincamera.worldh/2;
+		else if(worldcoordinates.y+world.maincamera.worldcoordinates.height/2>world.MAXY){
+			worldcoordinates.y=world.MAXY-world.maincamera.worldcoordinates.height/2;
 		}
 	}
 	public void moveTo(int x,int y){
-		worldx=x;
-		worldy=y;
+		worldcoordinates.x=x;
+		worldcoordinates.y=y;
 	}
 	public int getX(){
-		return worldx;
+		return worldcoordinates.x;
 	}
 	public int getY(){
-		return worldy;
+		return worldcoordinates.y;
 	}
 	public int getW(){
-		return worldw;
+		return worldcoordinates.width;
 	}
 	public int getH(){
-		return worldh;
+		return worldcoordinates.height;
 	}
 	public Point getPoint(Point p) {
 		return getPoint(p.x, p.y);
 	}
 	public Point getPoint(int x, int y) {
-		double rw = (double)draww/this.worldw;
-		double rh = (double)drawh/(double)this.worldh;
-		int onscreenx = (int) ((x-(drawx+draww/2))/rw+this.worldx);
-		int onscreeny = (int) ((y-(drawy+drawh/2))/rh+this.worldy);
+		double rw = (double)draw.width/this.worldcoordinates.width;
+		double rh = (double)draw.height/(double)this.worldcoordinates.height;
+		int onscreenx = (int) ((x-(draw.x+draw.width/2))/rw+this.worldcoordinates.x);
+		int onscreeny = (int) ((y-(draw.y+draw.height/2))/rh+this.worldcoordinates.y);
 		return new Point(onscreenx, onscreeny);
 	}
 	public Rectangle convertToOnScreen(Rectangle r) {
-		double rw = (double)draww/this.worldw;
-		double rh = (double)drawh/this.worldh;
-		Point newfocus = new Point((int)(drawx+draww/2), (int)(drawy+drawh/2));
-		int dx = r.x-this.worldx;
-		int dy = r.y-this.worldy;
+		double rw = (double)draw.width/this.worldcoordinates.width;
+		double rh = (double)draw.height/this.worldcoordinates.height;
+		Point newfocus = new Point((int)(draw.x+draw.width/2), (int)(draw.y+draw.height/2));
+		int dx = r.x-this.worldcoordinates.x;
+		int dy = r.y-this.worldcoordinates.y;
 		int newdx = (int) (dx*rw);
 		int newdy = (int) (dy*rh);
 		int neww = (int) (r.width*rw);
 		int newh = (int) (r.height*rh);
-		//System.out.println(newp.x+", "+newp.y+", "+newp2.x+", "+newp2.y);
 		return Camera.fixRectangle(new Rectangle(newdx+newfocus.x, newdy+newfocus.y, neww, newh));
 		
 	}
 	public Point getOnScreen(int x, int y) {
-		double rw = (double)draww/this.worldw;
-		double rh = (double)drawh/this.worldh;
-		int dx = x-this.worldx;
-		int dy = y-this.worldy;
+		double rw = (double)draw.width/this.worldcoordinates.width;
+		double rh = (double)draw.height/this.worldcoordinates.height;
+		int dx = x-this.worldcoordinates.x;
+		int dy = y-this.worldcoordinates.y;
 		int newdx = (int) (dx*rw);
 		int newdy = (int) (dy*rh);
-		Point newfocus = new Point((int)(drawx+draww/2), (int)(drawy+drawh/2));
+		Point newfocus = new Point((int)(draw.x+draw.width/2), (int)(draw.y+draw.height/2));
 		return new Point(newdx+newfocus.x, newdy+newfocus.y);
 	}
 	public void paint(Graphics2D g){
-		g.setColor(new Color(182,207,182));
-		g.fillRect(drawx, drawy, draww, drawh);
+		g.setColor(BACKGROUND);
+		g.fillRect(draw.x, draw.y, draw.width, draw.height);
 		g.setColor(Color.black);
-		g.drawRect(drawx, drawy, draww, drawh);
+		g.drawRect(draw.x, draw.y, draw.width, draw.height);
 		
 		for(Thing t : world.getAllThings()) {
 			Rectangle r = convertToOnScreen(t.getBounds());
@@ -173,10 +177,10 @@ public class Camera{
 				}
 			}
 		}
-		for(int x=-this.worldw; x<this.worldw; x+=50) {
-			for(int y=-this.worldh; y<this.worldh; y+=50) {
-				if(!world.doesPlayerHaveVision(world.thisplayer, new Point(this.worldx+x, this.worldy+y))) {
-					Rectangle r = convertToOnScreen(new Rectangle(this.worldx+x, this.worldy+y, 51, 51));
+		for(int x=-this.worldcoordinates.width; x<this.worldcoordinates.width; x+=50) {
+			for(int y=-this.worldcoordinates.height; y<this.worldcoordinates.height; y+=50) {
+				if(!world.doesPlayerHaveVision(world.thisplayer, new Point(this.worldcoordinates.x+x, this.worldcoordinates.y+y))) {
+					Rectangle r = convertToOnScreen(new Rectangle(this.worldcoordinates.x+x, this.worldcoordinates.y+y, 51, 51));
 					g.drawImage(FOG, r.x, r.y, r.width, r.height, null);
 				}
 			}
@@ -198,20 +202,20 @@ public class Camera{
 		g.drawRect(r.x, r.y, r.width, r.height);
 		
 		g.setColor(Color.red);
-		g.drawRect(drawx, drawy, draww, drawh);
+		g.drawRect(draw.x, draw.y, draw.width, draw.height);
 		
 	}
 	public void minimapPaint(Graphics2D g){
 		g.setColor(Color.white);
-		g.fillRect(drawx, drawy, draww, drawh);
+		g.fillRect(draw.x, draw.y, draw.width, draw.height);
 		g.setColor(Color.black);
-		g.drawRect(drawx, drawy, draww, drawh);
-		double rw = (double)draww/this.worldw;
-		double rh = (double)drawh/this.worldh;
-		Point newfocus = new Point((int)(drawx+draww/2), (int)(drawy+drawh/2));
+		g.drawRect(draw.x, draw.y, draw.width, draw.height);
+		double rw = (double)draw.width/this.worldcoordinates.width;
+		double rh = (double)draw.height/this.worldcoordinates.height;
+		Point newfocus = new Point((int)(draw.x+draw.width/2), (int)(draw.y+draw.height/2));
 		for(Thing t : world.getAllThings()) {
-			int dx = t.x()-this.worldx;
-			int dy = t.y()-this.worldy;
+			int dx = t.x()-this.worldcoordinates.x;
+			int dy = t.y()-this.worldcoordinates.y;
 			int newdx = (int) (dx*rw);
 			int newdy = (int) (dy*rh);
 			int neww = (int) (t.w()*rw);
@@ -225,8 +229,8 @@ public class Camera{
 			}
 		}
 //		for(Building b : world.getBuildings()) {
-//			int dx = b.x()-this.worldx;
-//			int dy = b.y()-this.worldy;
+//			int dx = b.x()-this.worldcoordinates.x;
+//			int dy = b.y()-this.worldcoordinates.y;
 //			int newdx = (int) (dx*rw);
 //			int newdy = (int) (dy*rh);
 //			int neww = (int) (b.w()*rw);
@@ -234,18 +238,18 @@ public class Camera{
 //			b.miniDraw(g, newdx+newfocus.x, newdy+newfocus.y, neww, newh);
 //		}
 //		for(Unit u : world.getUnits()) {
-//			int dx = u.x()-this.worldx;
-//			int dy = u.y()-this.worldy;
+//			int dx = u.x()-this.worldcoordinates.x;
+//			int dy = u.y()-this.worldcoordinates.y;
 //			int newdx = (int) (dx*rw);
 //			int newdy = (int) (dy*rh);
 //			int neww = (int) (u.w()*rw);
 //			int newh = (int) (u.h()*rh);
 //			u.miniDraw(g, newdx+newfocus.x, newdy+newfocus.y, neww, newh);
 //		}
-		for(int x=-this.worldw/2; x<this.worldw/2; x+=200) {
-			for(int y=-this.worldh/2; y<this.worldh/2; y+=200) {
-				if(!world.doesPlayerHaveVision(world.thisplayer, new Point(this.worldx+x, this.worldy+y))) {
-					Rectangle r = convertToOnScreen(new Rectangle(this.worldx+x, this.worldy+y, 201, 201));
+		for(int x=-this.worldcoordinates.width/2; x<this.worldcoordinates.width/2; x+=200) {
+			for(int y=-this.worldcoordinates.height/2; y<this.worldcoordinates.height/2; y+=200) {
+				if(!world.doesPlayerHaveVision(world.thisplayer, new Point(this.worldcoordinates.x+x, this.worldcoordinates.y+y))) {
+					Rectangle r = convertToOnScreen(new Rectangle(this.worldcoordinates.x+x, this.worldcoordinates.y+y, 201, 201));
 					g.drawImage(FOG, r.x, r.y, r.width, r.height, null);
 				}
 			}
@@ -255,8 +259,8 @@ public class Camera{
 		g.drawRect(r.x, r.y, r.width, r.height);
 		
 		g.setColor(Color.black);
-		r = convertToOnScreen(new Rectangle(this.world.maincamera.worldx-this.world.maincamera.worldw/2, this.world.maincamera.worldy-this.world.maincamera.worldh/2, this.world.maincamera.worldw, this.world.maincamera.worldh));
+		r = convertToOnScreen(new Rectangle(this.world.maincamera.worldcoordinates.x-this.world.maincamera.worldcoordinates.width/2, this.world.maincamera.worldcoordinates.y-this.world.maincamera.worldcoordinates.height/2, this.world.maincamera.worldcoordinates.width, this.world.maincamera.worldcoordinates.height));
 		g.draw(r);
-		//g.drawRect(drawx+draww/2, drawy+drawh/2, 1, 1);
+		//g.drawRect(draw.x+draw.width/2, draw.y+draw.height/2, 1, 1);
 	}
 }

@@ -29,17 +29,17 @@ public class Stable extends Building{
 	public Building initialize(int race, int x, int y) {
 		return new Stable(race, x, y);
 	}
-	@Override
-	public void tic() {
-		if(timing==true){
-			count++;
-		}
-		if(count>=ticcount){
-			Unit u = createandcollectUnit();
-			if(u!=null)
-				myworld.getUnits().add(u);
-		}
-	}
+//	@Override
+//	public void tic() {
+//		if(timing==true){
+//			count++;
+//		}
+//		if(count>=ticcount){
+//			Unit u = createandcollectUnit();
+//			if(u!=null)
+//				myworld.getUnits().add(u);
+//		}
+//	}
 	public int getUnitGoldCost() {
 		return 20;
 	}
@@ -49,45 +49,45 @@ public class Stable extends Building{
 	public int getUnitFoodCost() {
 		return 20;
 	}
-	public Unit createandcollectUnit(){
-		boolean found = false;
-		int tempcount = 0;
-		Knight a = null;
-		while(!found && tempcount++<20) {
-			double ran = Math.random();
-			if(ran<.25) {
-				a=new Knight(getPlayer().race(),0,x()-Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
-			} else if(ran<.5) {
-				a=new Knight(getPlayer().race(),0,x()+w()+Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
-			} else if(ran<.75) {
-				a=new Knight(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()-Worker.HEIGHT);
-			} else {
-				a=new Knight(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()+h()+Worker.HEIGHT);
-			}
-			found = !myworld.doesthiscollide(a, 0, 0);
-		}
-		if(!found)
-			return null;
-		if(a==null)
-			return null;
-		a.setPlayer(getPlayer());
-//		workerlist.add(a);
-		timing=false;
-		count=0;
-		return a;
-	}
-	public Unit collectUnit(){
-		if(knightlist.size()>0){
-			return knightlist.remove(0);
-		}
-		return null;
-	}
-	public boolean hasUnits(){
-		if(knightlist.size()>0){
-			return true;
-		}
-		return false;
-	}
+//	public Unit createandcollectUnit(){
+//		boolean found = false;
+//		int tempcount = 0;
+//		Knight a = null;
+//		while(!found && tempcount++<20) {
+//			double ran = Math.random();
+//			if(ran<.25) {
+//				a=new Knight(getPlayer().race(),0,x()-Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
+//			} else if(ran<.5) {
+//				a=new Knight(getPlayer().race(),0,x()+w()+Worker.WIDTH,(int) (y()-Worker.HEIGHT+Math.random()*(h()+Worker.HEIGHT)));
+//			} else if(ran<.75) {
+//				a=new Knight(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()-Worker.HEIGHT);
+//			} else {
+//				a=new Knight(getPlayer().race(),0,(int) (x()-Worker.WIDTH+Math.random()*(w()+Worker.WIDTH)),y()+h()+Worker.HEIGHT);
+//			}
+//			found = !myworld.doesthiscollide(a, 0, 0);
+//		}
+//		if(!found)
+//			return null;
+//		if(a==null)
+//			return null;
+//		a.setPlayer(getPlayer());
+////		workerlist.add(a);
+//		timing=false;
+//		count=0;
+//		return a;
+//	}
+//	public Unit collectUnit(){
+//		if(knightlist.size()>0){
+//			return knightlist.remove(0);
+//		}
+//		return null;
+//	}
+//	public boolean hasUnits(){
+//		if(knightlist.size()>0){
+//			return true;
+//		}
+//		return false;
+//	}
 	public void drawGUI(Graphics2D g, int x, int y, int w, int h) {
 		super.drawbuildGUI(g, x, y, w, h);
 		g.setColor(Color.white);
