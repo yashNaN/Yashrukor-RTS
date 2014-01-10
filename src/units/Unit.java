@@ -475,7 +475,7 @@ public abstract class Unit extends Thing{
 //		g.drawString("Attack Speed:"+attackspeed, x+400, y+60);
 		if(buffed) {
 			g.setFont(new Font("Arial", Font.BOLD, 40));
-			g.drawString("BUFF ON", x+250, y+110);
+			g.drawString("BUFF ON", x+300, y+110);
 		}
 	}
 	public void miniDraw(Graphics2D g, int x, int y, int w, int h) {

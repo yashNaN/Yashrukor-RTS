@@ -61,6 +61,7 @@ public class World extends JPanel {
 	private ArrayList<Unit> units = new ArrayList<Unit>();
 	private ArrayList<Building> buildings = new ArrayList<Building>();
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Explosion> explosions = new ArrayList<Explosion>();
 	Color[]colors={Color.red,Color.yellow,Color.green,Color.blue,Color.pink};
 	boolean addedunit = false;
 	public Player thisplayer;
@@ -213,6 +214,7 @@ public class World extends JPanel {
 	}
 	public void initializeImages() {
 		Building.underconstruction = new ImageIcon("resources//images//underconstruction.png").getImage();
+		Explosion.explodeImage = new ImageIcon("resources//images//ACELogo.png").getImage();
 	}
 	public Thing findClosestEnemy(Unit u) {
 		Thing closest = null;
@@ -396,6 +398,10 @@ public class World extends JPanel {
 					units.remove(a--);
 				} else
 				t.tic();
+			}
+			for(int i = 0; i < explosions.size(); i++)
+			{
+				explosions.get(i).tic();
 			}
 			for(int a=0; a<buildings.size(); a++){
 				Building b=buildings.get(a);
@@ -586,10 +592,25 @@ public class World extends JPanel {
 							}
 							else if(h.getName().equals("Prototype"))
 							{
-								if(frame.shiftdown) {
-									h.addAbility(h.getAbilityNumber(Action.ROCKETBARRAGE)); 
-								} else {
-									h.useAbility(h.getAbilityNumber(Action.ROCKETBARRAGE)); 
+								Point mouse = null;
+								if(getMiniCamera().inCamera(getFrame().currentMouse()))
+								{
+									Point ptemp = getMiniCamera().getPoint(getFrame().currentMouse().x, getFrame().currentMouse().y);
+									addDebug("Point Rocket MiniCam: " + ptemp);
+									addDebug("Crreunt Mouse MiniCam: " + getFrame().currentMouse());
+									if(frame.shiftdown)
+										h.addAbility(h.getAbilityNumber(Action.ROCKETBARRAGE),ptemp.x, ptemp.y);
+									else
+										h.useAbility(h.getAbilityNumber(Action.ROCKETBARRAGE),ptemp.x, ptemp.y);
+								}
+								else if(getMainCamera().inCamera(getFrame().currentMouse())) {
+									Point ptemp = getMainCamera().getPoint(getFrame().currentMouse().x, getFrame().currentMouse().y);
+									addDebug("Point Rocket MainCam: " + ptemp);
+									addDebug("Current Mouse MainCam: " + getFrame().currentMouse());
+									if(frame.shiftdown)
+										h.addAbility(h.getAbilityNumber(Action.ROCKETBARRAGE),ptemp.x, ptemp.y);
+									else
+										h.useAbility(h.getAbilityNumber(Action.ROCKETBARRAGE),ptemp.x, ptemp.y);
 								}
 							}
 						}
@@ -731,7 +752,6 @@ public class World extends JPanel {
 //		g.fillRect(this.getWidth()-20, 0, 20, this.getHeight());
 //		g.setColor(Color.white);
 //		g.drawString("HUD", 50, this.getHeight()-150);
-		
 		minimap.setBounds(this.getWidth()-190, this.getHeight()-190, 180, 180);
 		minimap.minimapPaint((Graphics2D)g);
 		for(int a=0; a<debug.size(); a++) {
@@ -779,10 +799,15 @@ public class World extends JPanel {
 	public ArrayList<Unit> getUnits() {
 		return units;
 	}
+	public ArrayList<Explosion> getExplosions()
+	{
+		return explosions; 
+	}
 	public ArrayList<Thing> getAllThings(){
 		ArrayList<Thing> allThings = new ArrayList<Thing>();
 		allThings.addAll(units);
 		allThings.addAll(buildings);
+		allThings.addAll(explosions);
 		return allThings; 
 	}
 	
