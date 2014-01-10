@@ -141,6 +141,10 @@ public class Thing implements Collides{
 		}
 		return false;
 	}
+	public void setVisionDistance(int inputx)
+	{
+		VISIONDISTANCE = inputx;
+	}
 	public boolean isDestroyed(){
 		return destroyed;
 	}

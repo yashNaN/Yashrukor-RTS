@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import main.Action;
+import main.Explosion;
 import main.Frame;
 import main.Thing;
 
@@ -24,6 +25,7 @@ public class Hero extends Unit {
 	int timerBlink;
 	int timerBladesDance; 
 	int timerWarCry; 
+	int timerRocketBarrage;
 	Frame heroframe = getWorld().getFrame();
 	boolean warcrycheck;
 	int mana, maxmana;
@@ -35,8 +37,8 @@ public class Hero extends Unit {
 	private ArrayList<Unit> allUnits = getWorld().getUnits();
 	final int BLADESDANCEDAMAGE = 50;
 	final int BLADESDANCERANGE = 100;
-	final int ROCKETBARRAGEDAMAGE = 25;
-	final int ROCKETBARRAGEDAMAGEAOE = 10;
+	final int ROCKETBARRAGEDAMAGE = 200;
+	final int ROCKETBARRAGEDAMAGEAOE = 100;
 	final int ROCKETBARRAGERANGE = 250;
 	public Point blinkpos;
 	/*
@@ -79,6 +81,7 @@ public class Hero extends Unit {
 		timerBladesDance = 0;
 		warcrycheck = false;
 		timerWarCry = 0;
+		timerRocketBarrage = 0; 
 		origx=x;
 		origy=y;
 		this.direction=direction;
@@ -142,6 +145,11 @@ public class Hero extends Unit {
 				warcrycheck = false;
 				debuff();
 			}
+		}
+		if(getName().equals("Prototype"))
+		{
+			if(timerRocketBarrage > 0)
+				timerRocketBarrage--; 
 		}
 		if(actionqueue.size()==0) {
 			return;
@@ -226,20 +234,26 @@ public class Hero extends Unit {
 			warcrycheck = true;
 			actionqueue.remove(0);
 		}
-		else if(a.type == Action.ROCKETBARRAGE && name.equals("Prototype") && timer <= 0){
-			//timer = 30;
+		else if(a.type == Action.ROCKETBARRAGE && name.equals("Prototype") && timerRocketBarrage <= 0){
+			
 			System.out.println("Starting rockets");
-			Point inworld = getWorld().getCamera().getPoint(getWorld().getFrame().currentMouse().x, getWorld().getFrame().currentMouse().y);
-			rocketPoints.add(inworld);
+			//Point inworld = getWorld().getFrame().currentMouse();//getCamera().getPoint(getWorld().getFrame().currentMouse().x, getWorld().getFrame().currentMouse().y);
+			//inworld = getWorld().getCamera().getOnScreen((int)inworld.getX(), (int)inworld.getY());
+			Point inworld = new Point(a.x, a.y);
+			rocketPoints.add(inworld);	
 			double eucliddistance = Math.sqrt((((rocketPoints.get(0).x - x())*(rocketPoints.get(0).x-x())) + ((rocketPoints.get(0).y - y()) * (rocketPoints.get(0).y-y()))));
 			if(eucliddistance < 400)
 			{
+				// This is real timer changed from this for testing timerRocketBarrage = 200;
+				timerRocketBarrage = 50;// Need to change back to real timer
+				Explosion explode = new Explosion((int)inworld.getX()-50,(int)inworld.getY()-50);
+				world().getExplosions().add(explode);
 				for(Thing t : allThings())
 				{
 					//System.out.println(t);
 					if(t instanceof Unit)
-						System.out.println(t);
-					if(t.getPlayer().equals(getPlayer()))
+						//getWorld().addDebug(t.toString());
+					if(!(t.getPlayer().equals(getPlayer())))
 					{
 						if(t.collides(rocketPoints.get(0)))
 						{
@@ -252,7 +266,7 @@ public class Hero extends Unit {
 							System.out.println("Rockets Launched");
 						}
 
-					}
+					} 	
 
 				}
 				actionqueue.remove(0);
@@ -403,7 +417,7 @@ public class Hero extends Unit {
 		g.drawString(name, x+40, y+50);
 		if(getName().equals("Slender"))
 		{
-			g.drawString("Blink", x+40, y+110);
+			g.drawString("Blink(z): ", x+40, y+110);
 			if(timerBlink <= 0)
 			{
 				timerBlink = 0;
@@ -413,7 +427,7 @@ public class Hero extends Unit {
 			{
 				timerBladesDance = 0;
 			}
-			g.drawString("Blades Dance: " + timerBladesDance/10, x + 250, y+110);
+			g.drawString("Blades Dance(x): " + timerBladesDance/10, x + 250, y+110);
 		}
 		if(getName().equals("Finneo"))
 		{
@@ -421,7 +435,13 @@ public class Hero extends Unit {
 			{
 				timerWarCry = 0;
 			}
-			g.drawString("Warcry: " + timerWarCry/10, x+40, y+110 );
+			g.drawString("Warcry(z): " + timerWarCry/10, x+40, y+110 );
+		}
+		if(getName().equals("Prototype"))
+		{
+			if(timerRocketBarrage <= 0)
+				timerRocketBarrage = 0;
+			g.drawString("Rocket Barrage(z): " + timerRocketBarrage/10, x+40, y+110);
 		}
 	}
 	public String toString() {
